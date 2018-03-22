@@ -11,5 +11,6 @@
     <orderEntry type="library" name="io.javalin:javalin:1.4.1" level="project" />
     <orderEntry type="library" name="Simple Logging Facade for Java:1.7.25" level="project" />
     <orderEntry type="library" name="org.apache.velocity:velocity:1.7" level="project" />
+    <orderEntry type="library" name="com.h2database:h2:1.4.197" level="project" />
   </component>
 </module>

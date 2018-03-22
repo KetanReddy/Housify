@@ -5,8 +5,8 @@
     <link rel="stylesheet" href="/main.css">
     <link rel="icon" href="/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="http://cdn.intercoolerjs.org/intercooler-1.2.1.min.js"></script>
+    <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/js/intercooler-1.2.1.min.js"></script>
 </head>
 <body>
     <header>
