@@ -1,10 +1,26 @@
 package app.housify.util
 
-import app.housify.auth.AuthType
-import io.javalin.Context
+import java.sql.ResultSet
+import java.util.ArrayList
 
-fun Context.getAuthType(): AuthType {
-    // By reading the ID and comparing it to that in the db,
-    // we could determine what level of access this user should have
-    return AuthType.NONE
+fun ResultSet.getColumns(): List<String> {
+    val columns = ArrayList<String>(metaData.columnCount)
+    for (i in 1..metaData.columnCount) {
+        columns.add(metaData.getColumnName(i).toLowerCase())
+    }
+    return columns
+}
+
+fun ResultSet.asArrayMap(): List<Map<String, String>> {
+    val list = arrayListOf<Map<String, String>>()
+    while (true) { list.add(asMap() ?: break) }
+    return list
+}
+
+fun ResultSet.asMap(): Map<String, String>? {
+    return if (next()) {
+        val map = hashMapOf<String, String>()
+        getColumns().forEach { map[it] = getString(it) }
+        map
+    } else null
 }

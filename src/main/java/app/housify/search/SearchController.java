@@ -1,6 +1,6 @@
 package app.housify.search;
 
-import app.housify.Path;
+import app.housify.util.Path;
 import io.javalin.Handler;
 
 import java.util.Arrays;
@@ -16,6 +16,7 @@ public class SearchController {
 
     public static Handler performSearch = context -> {
         Map<String, Object> data = new HashMap<>();
+        // TODO: Hook into SearchDao
         data.put("results", Arrays.asList(
                 new SearchResult(0),
                 new SearchResult(1),

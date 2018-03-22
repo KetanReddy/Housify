@@ -1,4 +1,4 @@
-package app.housify;
+package app.housify.util;
 
 public class Path {
 

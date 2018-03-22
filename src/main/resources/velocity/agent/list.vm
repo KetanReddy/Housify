@@ -9,7 +9,7 @@
                 <br>
                 Office ID: $agent.office
                 <br>
-                Telephone: $agent.telephone
+                El Telephono: $agent.telephone
             </a>
         </div>
     #end

@@ -2,9 +2,9 @@ package app.housify;
 
 import app.housify.agent.AgentController;
 import app.housify.agent.AgentDao;
-import app.housify.auth.AuthController;
+import app.housify.h2.H2ConnectionManager;
 import app.housify.search.SearchController;
-import io.javalin.ApiBuilder;
+import app.housify.util.Path;
 import io.javalin.Javalin;
 
 import static io.javalin.ApiBuilder.*;
@@ -14,9 +14,9 @@ public class Main {
     public static H2ConnectionManager connectionManager;
     public static AgentDao agentDao;
 
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) throws Exception {
         // Initialize H2
-        connectionManager = new H2ConnectionManager("~/housify/housify", "user", "pass");
+        connectionManager = new H2ConnectionManager("./out/h2/housify", "admin", "pencil");
 
         // Initialize DAOs
         agentDao = new AgentDao();
@@ -28,16 +28,15 @@ public class Main {
                 .start();
 
         app.routes(() -> {
-            before(AuthController.ensureLogin);
-
             path(Path.Web.AGENT, () -> {
                 get(AgentController.getAgents);
                 path(":id", () -> {
                     get(AgentController.getAgent);
                 });
             });
-            ApiBuilder.get(Path.Web.SEARCH, SearchController.renderSearch);
+            get(Path.Web.SEARCH, SearchController.renderSearch);
             post(Path.Web.SEARCH, SearchController.performSearch);
+            get("error", c -> { throw new Exception("error"); });
         });
     }
 
