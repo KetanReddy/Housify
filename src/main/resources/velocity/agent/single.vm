@@ -1,0 +1,16 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+    #if($agent)
+        <h1>$name</h1>
+        <h2>$office</h2>
+        <h2>$telephone</h2>
+        #if($address)
+            <h2>$address</h2>
+        #end
+        #if($salary)
+            <h2>$salary</h2>
+        #end
+    #else
+        <h1>Agent not found</h1>
+    #end
+#end

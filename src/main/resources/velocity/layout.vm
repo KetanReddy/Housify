@@ -1,0 +1,40 @@
+#macro(mainLayout)
+<html>
+<head>
+    <title>Housify</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="icon" href="/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="http://cdn.intercoolerjs.org/intercooler-1.2.1.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/index"><img id="logo" src="/img/logo.png" alt="Housify"></a>
+            <ul id="menu">
+                <li><a href="/agent">Agents</a></li>
+                <li><a href="/search">Search</a></li>
+                #if($currentUser)
+                    <li>
+                        <form method="post" action="/logout">
+                            <button id="logout">Logout</button>
+                        </form>
+                    </li>
+                #else
+                    <li><a href="/login">Login</a></li>
+                #end
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="content">
+            $bodyContent
+        </div>
+    </main>
+    <footer>
+        © Housify - 2018
+    </footer>
+</body>
+</html>
+#end

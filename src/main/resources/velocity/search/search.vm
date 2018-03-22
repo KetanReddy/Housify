@@ -1,0 +1,19 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+    <h1>Property Search</h1>
+    <div>
+        <form ic-post-to="/search" ic-target="#search-results-container">
+            ZIP: <input type="text" name="zip"><br>
+            Min Price: <input type="text" name="min_price">
+            Max Price: <input type="text" name="max_price"><br>
+            Num Beds: <input type="text" name="num_beds">
+            Num Baths: <input type="text" name="num baths"><br>
+            Square Footage: <input type="text" name="sq_ft">
+            Year Built: <input type="text" name="year_built">
+            <input type="submit" value="Search">
+        </form>
+    </div>
+    <div id="search-results-container">
+        #parse("/velocity/search/results.vm")
+    </div>
+#end

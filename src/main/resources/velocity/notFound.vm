@@ -1,0 +1,4 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+    <h1>Fur Oh Fur</h1>
+#end

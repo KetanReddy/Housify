@@ -1,0 +1,10 @@
+<h1>Search Results</h1>
+<div class="row row-3">
+    #foreach($result in $results)
+        <div class="row">
+            <a class="result" href="/property/$result.id">
+                Property ID: $result.id
+            </a>
+        </div>
+    #end
+</div>
