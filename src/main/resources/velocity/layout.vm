@@ -2,7 +2,8 @@
 <html>
 <head>
     <title>Housify</title>
-    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/styles/bulma.css">
+    <link rel="stylesheet" href="/styles/main.css">
     <link rel="icon" href="/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900|Lobster" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,20 +13,9 @@
 <body>
     <header>
         <nav>
-            <div class="logo left">Housify</div>
-            <ul id="menu" class="right">
-                <li><a href="/agent">Agents</a></li>
-                <li><a href="/search">Search</a></li>
-                #if($currentUser)
-                    <li>
-                        <form method="post" action="/logout">
-                            <button id="logout">Logout</button>
-                        </form>
-                    </li>
-                #else
-                    <li><a href="/login">Login</a></li>
-                #end
-            </ul>
+            <div class="logo left has-text-info">Housify</div>
+                <a href="/agent" class="button is-info is-outlined"><span>Agents</span></a>
+                <a href="/search" class="button is-info is-outlined"><span>Search</span></a>
         </nav>
     </header>
     <main>
@@ -33,9 +23,6 @@
             $bodyContent
         </div>
     </main>
-    <footer>
-        © Housify - 2018
-    </footer>
 </body>
 </html>
 #end
