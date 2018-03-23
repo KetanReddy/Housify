@@ -1,18 +1,19 @@
 #parse("/velocity/layout.vm")
 #@mainLayout()
 <h1>Agents</h1>
-<div class="row row-3">
-    #foreach($agent in $agents)
-        <div class="agent-list">
-            <a class="agent-item" href="/agent/$agent.id">
-                <span class="agent-item-left">
-                    $agent.name
-                </span>
-                <span class="agent-item-right">
-                    ID: $agent.office Phone: $agent.telephone
-                </span>
-            </a>
-        </div>
-    #end
-</div>
+#foreach($agent in $agents)
+    <div class="agent-list">
+        <a class="agent-item" href="/agent/$agent.id">
+            <span class="agent-item-left">
+                $agent.name
+            </span>
+            <span class="agent-item-right">
+                <div class="tags">
+                    <span class="tag is-light">$agent.id</span>
+                    <span class="tag is-primary">$agent.telephone</span>
+                </div>
+            </span>
+        </a>
+    </div>
+#end
 #end

@@ -1,15 +1,54 @@
 #parse("/velocity/layout.vm")
 #@mainLayout()
     #if($name)
-        <h1>$name</h1>
-        <h2>$office</h2>
-        <h2>$telephone</h2>
-        #if($address)
-            <h2>$address</h2>
-        #end
-        #if($salary)
-            <h2>$salary</h2>
-        #end
+        <h1>Hello, $name</h1>
+        <div class="field is-grouped is-grouped-multiline">
+            <div class="control">
+                <div class="tags has-addons">
+                    <span class="tag is-light is-medium">Office</span>
+                    <span class="tag is-info is-medium">$office</span>
+                </div>
+            </div>
+
+            <div class="control">
+                <div class="tags has-addons">
+                    <span class="tag is-light is-medium">Phone</span>
+                    <span class="tag is-info is-medium">$telephone</span>
+                </div>
+            </div>
+
+            #if($address)
+            <div class="control">
+                <div class="tags has-addons">
+                    <span class="tag is-light is-medium">Address</span>
+                    <span class="tag is-info is-medium">$address</span>
+                </div>
+            </div>
+            #end
+
+            #if($salary)
+            <div class="control">
+                <div class="tags has-addons">
+                    <span class="tag is-light is-medium">Salary</span>
+                    <span class="tag is-info is-medium">$salary</span>
+                </div>
+            </div>
+            #end
+        </div>
+
+        <h2>Your Previous Sales</h2>
+        <div class="agent-list">
+            <span class="agent-item">
+                <span class="agent-item-left">Colony Manor 97</span>
+            </span>
+        </div>
+
+        <h2>Your Active Listings</h2>
+        <div class="agent-list">
+            <span class="agent-item">
+                <span class="agent-item-left">Racquet Club 2B</span>
+            </span>
+        </div>
     #else
         <h1>Agent not found</h1>
     #end
