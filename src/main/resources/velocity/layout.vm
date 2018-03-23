@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="/styles/bulma.css">
     <link rel="stylesheet" href="/styles/main.css">
     <link rel="icon" href="/favicon.png">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900|Lobster" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/js/jquery-3.1.1.min.js"></script>
     <script src="/js/intercooler-1.2.1.min.js"></script>
@@ -19,8 +18,10 @@
         </nav>
     </header>
     <main>
-        <div id="content">
-            $bodyContent
+        <div class="container">
+            <div class="content">
+                $bodyContent
+            </div>
         </div>
     </main>
 </body>
