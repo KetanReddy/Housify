@@ -3,14 +3,82 @@
     <h1>Property Search</h1>
     <div>
         <form ic-post-to="/search" ic-target="#search-results-container">
-            ZIP: <input type="text" name="zip"><br>
-            Min Price: <input type="text" name="min_price">
-            Max Price: <input type="text" name="max_price"><br>
-            Num Beds: <input type="text" name="num_beds">
-            Num Baths: <input type="text" name="num baths"><br>
-            Square Footage: <input type="text" name="sq_ft">
-            Year Built: <input type="text" name="year_built">
-            <input type="submit" value="Search">
+            <!-- Zipcode -->
+            <div class="field is-horizontal">
+                <div class="field-label is-normal"><label class="label">Zipcode</label></div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control">
+                            <input class="input" type="text" name="zip" placeholder="12345">
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Price -->
+            <div class="field is-horizontal">
+                <div class="field-label is-normal"><label class="label">Price Range</label></div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control">
+                            <input class="input" type="text" name="min_price" placeholder="Minimum Price">
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control">
+                            <input class="input" type="text" name="max_price" placeholder="Maximum Price">
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Beds & Baths -->
+            <div class="field is-horizontal">
+                <div class="field-label is-normal"><label class="label">Beds & Baths</label></div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control">
+                            <input class="input" type="text" name="num_beds" placeholder="# of Beds">
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control">
+                            <input class="input" type="text" name="num_baths" placeholder="# of Baths">
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Square Footage -->
+            <div class="field is-horizontal">
+                <div class="field-label is-normal"><label class="label">Square Footage</label></div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control">
+                            <input class="input" type="text" name="sq_ft" placeholder="Square Feet (Minimum)">
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Year Built -->
+            <div class="field is-horizontal">
+                <div class="field-label is-normal"><label class="label">Year Built</label></div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control">
+                            <input class="input" type="text" name="year_built" placeholder="1995">
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Submit -->
+            <div class="field is-horizontal">
+                <div class="field-label is-normal"></div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control">
+                            <button class="button is-info" type="submit" name="zip">Filter Results</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
     <div id="search-results-container">
