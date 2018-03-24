@@ -3,6 +3,10 @@ package app.housify.agent;
 import app.housify.util.ExtensionsKt;
 import app.housify.h2.StatementResultSet;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -11,35 +15,43 @@ import static app.housify.Main.connectionManager;
 
 public class AgentDao {
 
+    String InsertQuery = "INSERT INTO agent (ID, NAME, ADDRESS, OFFICE, SALARY, TELEPHONE) VALUES (?,?,?,?,?,?)";
+
     public AgentDao() {
         // If agent table doesn't exist, create it and populate
         createTable();
+        loadFromCSV();
     }
 
     private void createTable() {
+        String query = "CREATE TABLE IF NOT EXISTS agent(" +
+                "ID INT PRIMARY KEY," +
+                "NAME VARCHAR(255)," +
+                "ADDRESS INT," +
+                "OFFICE INT," +
+                "SALARY INT," +
+                "TELEPHONE VARCHAR(10));";
         try {
-            String query = "CREATE TABLE IF NOT EXISTS agent(" +
-                    "ID INT PRIMARY KEY," +
-                    "NAME VARCHAR(255)," +
-                    "ADDRESS INT," +
-                    "OFFICE INT," +
-                    "SALARY INT," +
-                    "TELEPHONE VARCHAR(10));";
-
-            connectionManager.execute(query);
-
-            // Populate table
-            query = "INSERT INTO agent VALUES(0,\'Jeremiah Zucker\',0,0,100000,\'5555555555\');";
-            connectionManager.execute(query);
-            query = "INSERT INTO agent VALUES(1,\'Tyler Krupicka\',0,0,100000,\'5555555556\');";
-            connectionManager.execute(query);
-            query = "INSERT INTO agent VALUES(2,\'Ketan Reddy\',0,0,100000,\'5555555557\');";
-            connectionManager.execute(query);
-            query = "INSERT INTO agent VALUES(3,\'Tristan Manning\',0,0,100000,\'5555555558\');";
             connectionManager.execute(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+    }
+    private void loadFromCSV () {
+        // load csv file
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("./src/main/resources/data/Agent.csv"));
+            String line;
+            while((line = br.readLine()) != null){
+                String[] split = line.split(",");
+                this.addAgent(split);
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // Populate table
     }
 
     /* TODO: Need to lookup address and office when those tables get completed */
@@ -61,6 +73,16 @@ public class AgentDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private void addAgent (String[] AgentObj) {
+        String query = "INSERT INTO agent VALUES("+AgentObj[0]+",\'"+AgentObj[1]+"\',"+AgentObj[2]+","+AgentObj[3]+","+AgentObj[4]+",\'"+AgentObj[5]+"\');";
+        System.out.println(query);
+        try {
+            connectionManager.execute(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

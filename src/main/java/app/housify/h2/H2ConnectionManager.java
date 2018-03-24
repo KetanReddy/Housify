@@ -16,16 +16,21 @@ public class H2ConnectionManager {
         connection = DriverManager.getConnection(url, user, password);
     }
 
+    public void execute(PreparedStatement statement) throws SQLException {
+        statement.executeQuery();
+    }
     public void execute(String query) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             statement.execute(query);
         }
     }
-
     /** Ensure to use with try/resource block to maximize chances of closing objects **/
     public StatementResultSet executeQuery(String query) throws SQLException {
         Statement statement = connection.createStatement();
         return new StatementResultSet(statement, statement.executeQuery(query));
+    }
+    public PreparedStatement prepareStatement(String statement) throws SQLException {
+        return connection.prepareStatement(statement);
     }
 
 }
