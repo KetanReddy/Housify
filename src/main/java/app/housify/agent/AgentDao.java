@@ -85,4 +85,38 @@ public class AgentDao {
         }
     }
 
+    private void deleteAgent (String id) {
+        String query = String.format("DELETE * FROM agent WHERE ID = %s;", id);
+        System.out.println(query);
+        try {
+            connectionManager.execute(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Map<String,String>> getAgentListings(String id) {
+        String query = String.format("SELECT * FROM listing WHERE AGENT = %s;",id);
+        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
+            return ExtensionsKt.asArrayMap(srs.getResultSet());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Map<String,String>> getAgentSales(String id) {
+        String query = String.format("WITH agent_listing(SALEID) AS" +
+                "(SELECT SALE FROM listing " +
+                "WHERE AGENT = %s)" +
+                "SELECT * FROM sale " +
+                "WHERE sale.ID = agent_listing.SALEID;",id);
+        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
+            return ExtensionsKt.asArrayMap(srs.getResultSet());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

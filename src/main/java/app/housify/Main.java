@@ -1,8 +1,14 @@
 package app.housify;
 
+import app.housify.address.AddressDao;
 import app.housify.agent.AgentController;
 import app.housify.agent.AgentDao;
+import app.housify.client.ClientDao;
 import app.housify.h2.H2ConnectionManager;
+import app.housify.listing.ListingDao;
+import app.housify.office.OfficeDao;
+import app.housify.property.PropertyDao;
+import app.housify.sale.SaleDao;
 import app.housify.search.SearchController;
 import app.housify.util.Path;
 import io.javalin.Javalin;
@@ -13,6 +19,12 @@ public class Main {
 
     public static H2ConnectionManager connectionManager;
     public static AgentDao agentDao;
+    public static AddressDao addressDao;
+    public static ClientDao clientDao;
+    public static ListingDao listingDao;
+    public static OfficeDao officeDao;
+    public static PropertyDao propertyDao;
+    public static SaleDao saleDao;
 
     public static void main(String[] args) throws Exception {
         // Initialize H2
@@ -20,6 +32,12 @@ public class Main {
 
         // Initialize DAOs
         agentDao = new AgentDao();
+        addressDao = new AddressDao();
+        clientDao = new ClientDao();
+        listingDao = new ListingDao();
+        officeDao = new OfficeDao();
+        propertyDao = new PropertyDao();
+        saleDao = new SaleDao();
 
         // Initialize Javalin
         Javalin app = Javalin.create()
