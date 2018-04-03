@@ -46,6 +46,7 @@ public class Main {
                 .start();
 
         app.routes(() -> {
+            get(Path.Web.INDEX, AgentController.getAgents);
             path(Path.Web.AGENT, () -> {
                 get(AgentController.getAgents);
                 path(":id", () -> {
