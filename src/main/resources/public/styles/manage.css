@@ -1,0 +1,26 @@
+.metric {
+    border-radius: 2px;
+    background-color: #209cee;
+    box-shadow: 0 1px 3px #e0e0e0, 0 1px 2px #e0e0e0;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    min-height: 60px;
+    user-select: none;
+    width: 100%;
+    align-items: center;
+    padding: 15px;
+    color: white;
+    font-size: 1.4em;
+    font-weight: 600;
+}
+.metric-left {
+    flex: 1;
+    display: flex;
+    margin-right: 10px;
+    align-items: flex-start;
+}
+.metric-right {
+    display: flex;
+    align-items: flex-end;
+}

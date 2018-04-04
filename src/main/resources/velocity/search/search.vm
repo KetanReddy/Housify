@@ -81,7 +81,8 @@
             </div>
         </form>
     </div>
+    <h1>Search Results</h1>
     <div id="search-results-container">
-        #parse("/velocity/search/results.vm")
+        #parse("/velocity/listings.vm")
     </div>
 #end

@@ -1,0 +1,53 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+    <h1>Management</h1>
+    <div>
+        <form ic-post-to="/manage" ic-target="#manage-results-container">
+            <!-- office and agent -->
+            <div class="columns">
+                <div class="column">
+                    <div class="select is-fullwidth">
+                        <select name="office">
+                            <option value="">Office</option>
+                            <option value="1">New York</option>
+                            <option value="2">California</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="select is-fullwidth">
+                        <select name="agent">
+                            <option value="">Agent</option>
+                            <option value="1">Tyler Krupicka</option>
+                            <option value="2">Ketan Reddy</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- Submit -->
+            <div class="field">
+                <p class="control">
+                    <button class="button is-info" type="submit" name="zip">Get Data</button>
+                </p>
+            </div>
+        </form>
+    </div>
+    <!-- Metrics -->
+    <h1>Metrics</h1>
+    <div class="metric">
+        <span class="metric-left">Time to sell a home:</span>
+        <span class="metric-right">3 days</span>
+    </div>
+    <div class="metric">
+        <span class="metric-left">Average sale price:</span>
+        <span class="metric-right">$400,000</span>
+    </div>
+    <div class="metric">
+        <span class="metric-left">Total Sales:</span>
+        <span class="metric-right">200</span>
+    </div>
+    <h1>Active Listings</h1>
+    <div id="manage-results-container">
+        #parse("/velocity/listings.vm")
+    </div>
+#end

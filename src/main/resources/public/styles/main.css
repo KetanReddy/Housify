@@ -2,6 +2,7 @@
 @import '../fonts/lato.css';
 @import 'agent.css';
 @import 'property.css';
+@import 'manage.css';
 * {
     box-sizing: border-box;
 }

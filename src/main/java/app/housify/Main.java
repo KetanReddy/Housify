@@ -6,6 +6,7 @@ import app.housify.agent.AgentDao;
 import app.housify.client.ClientDao;
 import app.housify.h2.H2ConnectionManager;
 import app.housify.listing.ListingDao;
+import app.housify.manage.ManageController;
 import app.housify.office.OfficeDao;
 import app.housify.property.PropertyDao;
 import app.housify.sale.SaleDao;
@@ -53,6 +54,8 @@ public class Main {
                     get(AgentController.getAgent);
                 });
             });
+            get(Path.Web.MANAGE, ManageController.renderManage);
+            post(Path.Web.SEARCH, ManageController.showListings);
             get(Path.Web.SEARCH, SearchController.renderSearch);
             post(Path.Web.SEARCH, SearchController.performSearch);
             get("error", c -> { throw new Exception("error"); });
