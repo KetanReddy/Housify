@@ -6,13 +6,18 @@ import app.housify.util.ExtensionsKt;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 import java.util.Map;
 
 import static app.housify.Main.connectionManager;
 
 public class ListingDao {
+
+    String InsertQuery = "INSERT INTO listing (ID, SELLER, PRICE, SALE, DATE, AGENT, OFFICE, PROPERTY) VALUES (?,?,?,?,?,?,?,?)";
+    PreparedStatement preparedInsert;
 
     public ListingDao() {
         // If listing table doesn't exist, create it and populate
@@ -21,19 +26,28 @@ public class ListingDao {
     }
 
     private void createTable() {
-        try {
-            String query = "CREATE TABLE IF NOT EXISTS listing(" +
-                    "ID INT PRIMARY KEY," +
-                    "SELLER INT," +
-                    "PRICE NUMERIC(10,2)," +
-                    "SALE INT," +
-                    "DATE BIGINT," +
-                    "AGENT INT," +
-                    "OFFICE INT," +
-                    "PROPERTY INT);";
+        String drop = "DROP TABLE IF EXISTS listing";
+        String create = "CREATE TABLE IF NOT EXISTS listing(" +
+                "ID INT PRIMARY KEY," +
+                "SELLER INT," +
+                "PRICE NUMERIC(10,2)," +
+                "SALE INT," +
+                "DATE BIGINT," +
+                "AGENT INT," +
+                "OFFICE INT," +
+                "PROPERTY INT);";
 
-            connectionManager.execute(query);
+        try {
+            connectionManager.execute(drop);
+            connectionManager.execute(create);
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            preparedInsert = connectionManager.prepareStatement(InsertQuery);
+        } catch (SQLException e) {
+            System.err.println("Error Creating Prepared Statements for Listing Table");
             e.printStackTrace();
         }
     }
@@ -49,6 +63,9 @@ public class ListingDao {
             }
             br.close();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Error Inserting Listing Rows");
             e.printStackTrace();
         }
         // Populate table
@@ -74,21 +91,19 @@ public class ListingDao {
         return null;
     }
 
-    private void addListing(String[] ListingObj) {
-        String query = "INSERT INTO listing VALUES("
-                + ListingObj[0]
-                + "," + ListingObj[1]
-                + "," + ListingObj[2]
-                + "," + ListingObj[3]
-                + "," + ListingObj[4]
-                + "," + ListingObj[5]
-                + "," + ListingObj[6]
-                + "," + ListingObj[7] + ");";
-        System.out.println(query);
-        try {
-            connectionManager.execute(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
+    private void addListing(String[] ListingObj) throws SQLException {
+        preparedInsert.setInt(1,Integer.parseInt(ListingObj[0]));
+        preparedInsert.setInt(2,Integer.parseInt(ListingObj[1]));
+        preparedInsert.setInt(3,Integer.parseInt(ListingObj[2]));
+        if (ListingObj[3].equals("")) {
+            preparedInsert.setNull(4,Types.NULL);
+        } else {
+            preparedInsert.setInt(4,Integer.parseInt(ListingObj[3]));
         }
+        preparedInsert.setLong(5,Long.parseLong(ListingObj[4]));
+        preparedInsert.setInt(6,Integer.parseInt(ListingObj[5]));
+        preparedInsert.setInt(7,Integer.parseInt(ListingObj[6]));
+        preparedInsert.setInt(8,Integer.parseInt(ListingObj[7]));
+        preparedInsert.executeUpdate();
     }
 }

@@ -6,6 +6,7 @@ import app.housify.util.ExtensionsKt;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,9 @@ import static app.housify.Main.connectionManager;
 
 public class ClientDao {
 
+    String InsertQuery = "INSERT INTO client (ID, NAME, ADDRESS, TELEPHONE) VALUES (?,?,?,?)";
+    PreparedStatement preparedInsert;
+
     public ClientDao() {
         // If client table doesn't exist, create it and populate
         createTable();
@@ -21,15 +25,24 @@ public class ClientDao {
     }
 
     private void createTable() {
+        String drop = "DROP TABLE IF EXISTS client";
+        String create = "CREATE TABLE IF NOT EXISTS client(" +
+                "ID INT PRIMARY KEY," +
+                "NAME VARCHAR(255)," +
+                "ADDRESS INT," +
+                "TELEPHONE VARCHAR(10));";
         try {
-            String query = "CREATE TABLE IF NOT EXISTS client(" +
-                    "ID INT PRIMARY KEY," +
-                    "NAME VARCHAR(255)," +
-                    "ADDRESS INT," +
-                    "TELEPHONE VARCHAR(10));";
-
-            connectionManager.execute(query);
+            connectionManager.execute(drop);
+            connectionManager.execute(create);
         } catch (SQLException e) {
+            System.err.println("Error Creating Client Table");
+            e.printStackTrace();
+        }
+
+        try {
+            preparedInsert = connectionManager.prepareStatement(InsertQuery);
+        } catch (SQLException e) {
+            System.err.println("Error Creating Prepared Statements for Client Table");
             e.printStackTrace();
         }
     }
@@ -39,6 +52,7 @@ public class ClientDao {
         try {
             BufferedReader br = new BufferedReader(new FileReader("./src/main/resources/data/Client.csv"));
             String line;
+            // Populate table
             while ((line = br.readLine()) != null) {
                 String[] split = line.split(",");
                 this.addClient(split);
@@ -46,8 +60,11 @@ public class ClientDao {
             br.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Error Inserting Client Rows");
+            e.printStackTrace();
         }
-        // Populate table
+        System.out.println("Loaded Client Table");
     }
 
     public List<Map<String, String>> getClients() {
@@ -70,13 +87,11 @@ public class ClientDao {
         return null;
     }
 
-    private void addClient(String[] ClientObj) {
-        String query = "INSERT INTO client VALUES(" + ClientObj[0] + ",\'" + ClientObj[1] + "\'," + ClientObj[2] + ",\'" + ClientObj[3] + "\');";
-        System.out.println(query);
-        try {
-            connectionManager.execute(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    private void addClient(String[] ClientObj) throws SQLException {
+        preparedInsert.setInt(1,Integer.parseInt(ClientObj[0]));
+        preparedInsert.setString(2,ClientObj[1]);
+        preparedInsert.setInt(3,Integer.parseInt(ClientObj[2]));
+        preparedInsert.setString(4,ClientObj[3]);
+        preparedInsert.executeUpdate();
     }
 }

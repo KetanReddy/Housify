@@ -6,6 +6,7 @@ import app.housify.util.ExtensionsKt;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,9 @@ import static app.housify.Main.connectionManager;
 
 public class AddressDao {
 
+    String InsertQuery = "INSERT INTO address (ID, STREET, CITY, STATE, ZIP) VALUES (?,?,?,?,?)";
+    PreparedStatement preparedInsert;
+
     public AddressDao() {
         // If address table doesn't exist, create it and populate
         createTable();
@@ -21,16 +25,25 @@ public class AddressDao {
     }
 
     private void createTable() {
+        String drop = "DROP TABLE IF EXISTS address";
+        String create = "CREATE TABLE IF NOT EXISTS address(" +
+                "ID INT PRIMARY KEY," +
+                "STREET VARCHAR(255)," +
+                "CITY VARCHAR(255)," +
+                "STATE VARCHAR(127)," +
+                "ZIP INT);";
         try {
-            String query = "CREATE TABLE IF NOT EXISTS address(" +
-                    "ID INT PRIMARY KEY," +
-                    "STREET VARCHAR(255)," +
-                    "CITY VARCHAR(255)," +
-                    "STATE VARCHAR(127)," +
-                    "ZIP INT);";
-
-            connectionManager.execute(query);
+            connectionManager.execute(drop);
+            connectionManager.execute(create);
         } catch (SQLException e) {
+            System.err.println("Error Creating Address Table");
+            e.printStackTrace();
+        }
+
+        try {
+            preparedInsert = connectionManager.prepareStatement(InsertQuery);
+        } catch (SQLException e) {
+            System.err.println("Error Creating Prepared Statements for Address Table");
             e.printStackTrace();
         }
     }
@@ -39,6 +52,7 @@ public class AddressDao {
         try {
             BufferedReader br = new BufferedReader(new FileReader("./src/main/resources/data/Address.csv"));
             String line;
+            // Populate table
             while((line = br.readLine()) != null){
                 String[] split = line.split(",");
                 this.addAddress(split);
@@ -46,8 +60,11 @@ public class AddressDao {
             br.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Error Inserting Address Rows");
+            e.printStackTrace();
         }
-        // Populate table
+        System.out.println("Loaded Address Table");
     }
 
     public List<Map<String, String>> getAddresses() {
@@ -70,14 +87,13 @@ public class AddressDao {
         return null;
     }
 
-    private void addAddress (String[] AddressObj) {
-        String query = "INSERT INTO address VALUES("+AddressObj[0]+",\'"+AddressObj[1]+"\',\'"+AddressObj[2]+"\',\'"+AddressObj[3]+"\',"+AddressObj[4]+");";
-        System.out.println(query);
-        try {
-            connectionManager.execute(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    private void addAddress (String[] AddressObj) throws SQLException {
+        preparedInsert.setInt(1,Integer.parseInt(AddressObj[0]));
+        preparedInsert.setString(2,AddressObj[1]);
+        preparedInsert.setString(3,AddressObj[2]);
+        preparedInsert.setString(4,AddressObj[3]);
+        preparedInsert.setString(5,AddressObj[4]);
+        preparedInsert.executeUpdate();
     }
 
 }

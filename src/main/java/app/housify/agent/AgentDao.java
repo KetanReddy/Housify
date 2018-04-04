@@ -16,6 +16,7 @@ import static app.housify.Main.connectionManager;
 public class AgentDao {
 
     String InsertQuery = "INSERT INTO agent (ID, NAME, ADDRESS, OFFICE, SALARY, TELEPHONE) VALUES (?,?,?,?,?,?)";
+    PreparedStatement preparedInsert;
 
     public AgentDao() {
         // If agent table doesn't exist, create it and populate
@@ -24,7 +25,8 @@ public class AgentDao {
     }
 
     private void createTable() {
-        String query = "CREATE TABLE IF NOT EXISTS agent(" +
+        String drop = "DROP TABLE IF EXISTS agent";
+        String create = "CREATE TABLE IF NOT EXISTS agent(" +
                 "ID INT PRIMARY KEY," +
                 "NAME VARCHAR(255)," +
                 "ADDRESS INT," +
@@ -32,8 +34,17 @@ public class AgentDao {
                 "SALARY INT," +
                 "TELEPHONE VARCHAR(10));";
         try {
-            connectionManager.execute(query);
+            connectionManager.execute(drop);
+            connectionManager.execute(create);
         } catch (SQLException e) {
+            System.err.println("Error Creating Agent Table");
+            e.printStackTrace();
+        }
+
+        try {
+            preparedInsert = connectionManager.prepareStatement(InsertQuery);
+        } catch (SQLException e) {
+            System.err.println("Error Creating Prepared Statements for Agent Table");
             e.printStackTrace();
         }
 
@@ -43,6 +54,7 @@ public class AgentDao {
         try {
             BufferedReader br = new BufferedReader(new FileReader("./src/main/resources/data/Agent.csv"));
             String line;
+            // Populate table
             while((line = br.readLine()) != null){
                 String[] split = line.split(",");
                 this.addAgent(split);
@@ -50,8 +62,11 @@ public class AgentDao {
             br.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Error Inserting Agent into Table");
+            e.printStackTrace();
         }
-        // Populate table
+        System.out.println("Loaded Agent Table");
     }
 
     /* TODO: Need to lookup address and office when those tables get completed */
@@ -75,14 +90,14 @@ public class AgentDao {
         return null;
     }
 
-    private void addAgent (String[] AgentObj) {
-        String query = "INSERT INTO agent VALUES("+AgentObj[0]+",\'"+AgentObj[1]+"\',"+AgentObj[2]+","+AgentObj[3]+","+AgentObj[4]+",\'"+AgentObj[5]+"\');";
-        System.out.println(query);
-        try {
-            connectionManager.execute(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    private void addAgent (String[] AgentObj) throws SQLException {
+        preparedInsert.setInt(1,Integer.parseInt(AgentObj[0]));
+        preparedInsert.setString(2,AgentObj[1]);
+        preparedInsert.setInt(3,Integer.parseInt(AgentObj[2]));
+        preparedInsert.setInt(4,Integer.parseInt(AgentObj[3]));
+        preparedInsert.setInt(5,Integer.parseInt(AgentObj[4]));
+        preparedInsert.setString(6,AgentObj[5]);
+        preparedInsert.executeUpdate();
     }
 
     private void deleteAgent (String id) {

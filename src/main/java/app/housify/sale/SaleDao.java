@@ -6,6 +6,7 @@ import app.housify.util.ExtensionsKt;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,9 @@ import static app.housify.Main.connectionManager;
 
 public class SaleDao {
 
+    String InsertQuery = "INSERT INTO sale (ID, LISTING, SELLER, BUYER, PRICE, DATE ) VALUES (?,?,?,?,?,?)";
+    PreparedStatement preparedInsert;
+
     public SaleDao() {
         // If sale table doesn't exist, create it and populate
         createTable();
@@ -21,16 +25,26 @@ public class SaleDao {
     }
 
     private void createTable() {
-        try {
-            String query = "CREATE TABLE IF NOT EXISTS sale(" +
-                    "ID INT PRIMARY KEY," +
-                    "LISTING INT," +
-                    "BUYER INT," +
-                    "PRICE NUMERIC(10,2)," +
-                    "DATE BIGINT);";
+        String drop = "DROP TABLE IF EXISTS sale";
+        String create = "CREATE TABLE IF NOT EXISTS sale(" +
+                "ID INT PRIMARY KEY," +
+                "LISTING INT," +
+                "SELLER INT," +
+                "BUYER INT," +
+                "PRICE NUMERIC(10,2)," +
+                "DATE BIGINT);";
 
-            connectionManager.execute(query);
+        try {
+            connectionManager.execute(drop);
+            connectionManager.execute(create);
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            preparedInsert = connectionManager.prepareStatement(InsertQuery);
+        } catch (SQLException e) {
+            System.err.println("Error Creating Prepared Statements for Sale Table");
             e.printStackTrace();
         }
     }
@@ -48,6 +62,9 @@ public class SaleDao {
             }
             br.close();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Error Inserting Sale Rows");
             e.printStackTrace();
         }
         // Populate table
@@ -73,18 +90,13 @@ public class SaleDao {
         return null;
     }
 
-    private void addSale(String[] SaleObj) {
-        String query = "INSERT INTO sale VALUES("
-                + SaleObj[0]
-                + "," + SaleObj[1]
-                + "," + SaleObj[2]
-                + "," + SaleObj[3]
-                + "," + SaleObj[4] + ");";
-        System.out.println(query);
-        try {
-            connectionManager.execute(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    private void addSale(String[] SaleObj) throws SQLException {
+        preparedInsert.setInt(1,Integer.parseInt(SaleObj[0]));
+        preparedInsert.setInt(2,Integer.parseInt(SaleObj[1]));
+        preparedInsert.setInt(3,Integer.parseInt(SaleObj[2]));
+        preparedInsert.setInt(4,Integer.parseInt(SaleObj[3]));
+        preparedInsert.setInt(5,Integer.parseInt(SaleObj[4]));
+        preparedInsert.setLong(6,Long.parseLong(SaleObj[5]));
+        preparedInsert.executeUpdate();
     }
 }

@@ -6,6 +6,7 @@ import app.housify.util.ExtensionsKt;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,9 @@ import static app.housify.Main.connectionManager;
 
 public class PropertyDao {
 
+    String InsertQuery = "INSERT INTO property (ID, NUMBEDS, NUMBATHS, YEARBUIT, SQUAREFOOTAGE, ADDRESS ) VALUES (?,?,?,?,?,?)";
+    PreparedStatement preparedInsert;
+
     public PropertyDao() {
         // If property table doesn't exist, create it and populate
         createTable();
@@ -21,17 +25,26 @@ public class PropertyDao {
     }
 
     private void createTable() {
-        try {
-            String query = "CREATE TABLE IF NOT EXISTS property(" +
-                    "ID INT PRIMARY KEY," +
-                    "NUMBEDS INT," +
-                    "NUMBATHS INT," +
-                    "YEARBUIT INT," +
-                    "SQUAREFOOTAGE INT" +
-                    "ADDRESS INT);";
+        String drop = "DROP TABLE IF EXISTS property";
+        String create = "CREATE TABLE IF NOT EXISTS property(" +
+                "ID INT PRIMARY KEY," +
+                "NUMBEDS INT," +
+                "NUMBATHS INT," +
+                "YEARBUIT INT," +
+                "SQUAREFOOTAGE INT," +
+                "ADDRESS INT);";
 
-            connectionManager.execute(query);
+        try {
+            connectionManager.execute(drop);
+            connectionManager.execute(create);
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            preparedInsert = connectionManager.prepareStatement(InsertQuery);
+        } catch (SQLException e) {
+            System.err.println("Error Creating Prepared Statements for Property Table");
             e.printStackTrace();
         }
     }
@@ -47,6 +60,9 @@ public class PropertyDao {
             }
             br.close();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Error Inserting Property Rows");
             e.printStackTrace();
         }
         // Populate table
@@ -72,19 +88,14 @@ public class PropertyDao {
         return null;
     }
 
-    private void addProperty(String[] PropertyObj) {
-        String query = "INSERT INTO property VALUES("
-                + PropertyObj[0]
-                + "," + PropertyObj[1]
-                + "," + PropertyObj[2]
-                + "," + PropertyObj[3]
-                + "," + PropertyObj[4]
-                + "," + PropertyObj[5] + ");";
-        System.out.println(query);
-        try {
-            connectionManager.execute(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    private void addProperty(String[] PropertyObj) throws SQLException {
+        preparedInsert.setInt(1,Integer.parseInt(PropertyObj[0]));
+        preparedInsert.setInt(2,Integer.parseInt(PropertyObj[1]));
+        preparedInsert.setInt(3,Integer.parseInt(PropertyObj[2]));
+        preparedInsert.setInt(4,Integer.parseInt(PropertyObj[3]));
+        preparedInsert.setInt(5,Integer.parseInt(PropertyObj[4]));
+        preparedInsert.setInt(6,Integer.parseInt(PropertyObj[5]));
+        preparedInsert.executeUpdate();
+
     }
 }
