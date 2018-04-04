@@ -1,10 +1,30 @@
 <h1>Search Results</h1>
 <div class="row row-3">
-    #foreach($result in $results)
-        <div class="row">
-            <a class="result" href="/property/$result.id">
-                Property ID: $result.id
-            </a>
-        </div>
-    #end
+    <div class="property-list">
+        <span class="property-item">
+            <div class="property-item-content">
+                <span class="property-item-left">
+                    <span class="address">Racquet Club 2B</span>
+                </span>
+                <span class="agent-item-right">
+                    <div class="tags">
+                        <span class="tag is-link">$120,000</span>
+                        <span class="tag is-link">4/3/2018</span>
+                    </div>
+                </span>
+            </div>
+            <!-- Atributes -->
+            <div class="property-item-details">
+                <span class="property-item-left">Seller: Jeremiah Zucker</span>
+                <span class="agent-item-right">
+                    <div class="tags">
+                        <span class="tag is-light">2 beds</span>
+                        <span class="tag is-light">1.5 baths</span>
+                        <span class="tag is-light">1879</span>
+                        <span class="tag is-light">900 sq. ft.</span>
+                    </div>
+                </span>
+            </div>
+        </span>
+    </div>
 </div>

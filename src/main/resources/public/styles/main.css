@@ -1,6 +1,7 @@
 @import '../fonts/lobster.css';
 @import '../fonts/lato.css';
 @import 'agent.css';
+@import 'property.css';
 * {
     box-sizing: border-box;
 }
