@@ -47,6 +47,7 @@ public class SaleDao {
             System.err.println("Error Creating Prepared Statements for Sale Table");
             e.printStackTrace();
         }
+        System.out.println("Loaded Sale Table");
     }
 
     /*TODO Create a derived commission() function*/

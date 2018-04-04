@@ -47,6 +47,7 @@ public class PropertyDao {
             System.err.println("Error Creating Prepared Statements for Property Table");
             e.printStackTrace();
         }
+        System.out.println("Loaded Property Table");
     }
 
     private void loadFromCSV() {

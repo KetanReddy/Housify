@@ -45,6 +45,7 @@ public class OfficeDao {
             System.err.println("Error Creating Prepared Statements for Office Table");
             e.printStackTrace();
         }
+        System.out.println("Loaded Office Table");
     }
 
     private void loadFromCSV() {

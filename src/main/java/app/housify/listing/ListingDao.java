@@ -50,6 +50,7 @@ public class ListingDao {
             System.err.println("Error Creating Prepared Statements for Listing Table");
             e.printStackTrace();
         }
+        System.out.println("Loaded Listing Table");
     }
 
     private void loadFromCSV() {
