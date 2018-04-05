@@ -28,14 +28,18 @@ public class ListingDao {
     private void createTable() {
         String drop = "DROP TABLE IF EXISTS listing";
         String create = "CREATE TABLE IF NOT EXISTS listing(" +
-                "ID INT PRIMARY KEY," +
-                "SELLER INT," +
-                "PRICE NUMERIC(10,2)," +
+                "ID INT PRIMARY KEY NOT NULL," +
+                "SELLER INT NOT NULL," +
+                "PRICE NUMERIC(10,2) NOT NULL," +
                 "SALE INT," +
-                "DATE BIGINT," +
-                "AGENT INT," +
-                "OFFICE INT," +
-                "PROPERTY INT);";
+                "DATE BIGINT NOT NULL," +
+                "AGENT INT NOT NULL," +
+                "OFFICE INT NOT NULL," +
+                "PROPERTY INT NOT NULL," +
+                "FOREIGN KEY (SELLER) REFERENCES client," +
+                "FOREIGN KEY (AGENT) REFERENCES agent," +
+                "FOREIGN KEY (OFFICE) REFERENCES office," +
+                "FOREIGN KEY (PROPERTY) REFERENCES property);";
 
         try {
             connectionManager.execute(drop);
@@ -50,7 +54,6 @@ public class ListingDao {
             System.err.println("Error Creating Prepared Statements for Listing Table");
             e.printStackTrace();
         }
-        System.out.println("Loaded Listing Table");
     }
 
     private void loadFromCSV() {
@@ -69,7 +72,18 @@ public class ListingDao {
             System.err.println("Error Inserting Listing Rows");
             e.printStackTrace();
         }
-        // Populate table
+        System.out.println("Loaded Listing Table");
+    }
+
+    public void linkToSalesTable() {
+        String alter = "ALTER TABLE listing ADD FOREIGN KEY (SALE) REFERENCES sale;";
+        try {
+            connectionManager.execute(alter);
+        } catch (SQLException e) {
+            System.err.println("Error linking Listing table to Sale");
+            e.printStackTrace();
+        }
+        System.out.println("Linked Listing and Sales Tables");
     }
 
     public List<Map<String, String>> getListings() {

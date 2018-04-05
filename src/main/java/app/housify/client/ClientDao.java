@@ -27,10 +27,11 @@ public class ClientDao {
     private void createTable() {
         String drop = "DROP TABLE IF EXISTS client";
         String create = "CREATE TABLE IF NOT EXISTS client(" +
-                "ID INT PRIMARY KEY," +
-                "NAME VARCHAR(255)," +
-                "ADDRESS INT," +
-                "TELEPHONE VARCHAR(10));";
+                "ID INT PRIMARY KEY NOT NULL," +
+                "NAME VARCHAR(255) NOT NULL," +
+                "ADDRESS INT NOT NULL," +
+                "TELEPHONE VARCHAR(10) NOT NULL," +
+                "FOREIGN KEY (ADDRESS) REFERENCES address);";
         try {
             connectionManager.execute(drop);
             connectionManager.execute(create);

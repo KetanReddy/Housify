@@ -27,12 +27,14 @@ public class AgentDao {
     private void createTable() {
         String drop = "DROP TABLE IF EXISTS agent";
         String create = "CREATE TABLE IF NOT EXISTS agent(" +
-                "ID INT PRIMARY KEY," +
-                "NAME VARCHAR(255)," +
-                "ADDRESS INT," +
-                "OFFICE INT," +
-                "SALARY INT," +
-                "TELEPHONE VARCHAR(10));";
+                "ID INT PRIMARY KEY NOT NULL," +
+                "NAME VARCHAR(255) NOT NULL," +
+                "ADDRESS INT NOT NULL," +
+                "OFFICE INT NOT NULL," +
+                "SALARY INT NOT NULL," +
+                "TELEPHONE VARCHAR(10) NOT NULL," +
+                "FOREIGN KEY (ADDRESS) REFERENCES address," +
+                "FOREIGN KEY (OFFICE) REFERENCES office);";
         try {
             connectionManager.execute(drop);
             connectionManager.execute(create);

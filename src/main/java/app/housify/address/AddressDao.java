@@ -28,11 +28,11 @@ public class AddressDao {
     private void createTable() {
         String drop = "DROP TABLE IF EXISTS address";
         String create = "CREATE TABLE IF NOT EXISTS address(" +
-                "ID INT PRIMARY KEY," +
-                "STREET VARCHAR(255)," +
-                "CITY VARCHAR(255)," +
-                "STATE VARCHAR(127)," +
-                "ZIP INT);";
+                "ID INT PRIMARY KEY NOT NULL," +
+                "STREET VARCHAR(255) NOT NULL," +
+                "CITY VARCHAR(255) NOT NULL," +
+                "STATE VARCHAR(127) NOT NULL," +
+                "ZIP INT NOT NULL);";
         try {
             connectionManager.execute(drop);
             connectionManager.execute(create);

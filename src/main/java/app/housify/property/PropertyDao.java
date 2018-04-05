@@ -27,12 +27,13 @@ public class PropertyDao {
     private void createTable() {
         String drop = "DROP TABLE IF EXISTS property";
         String create = "CREATE TABLE IF NOT EXISTS property(" +
-                "ID INT PRIMARY KEY," +
-                "NUMBEDS INT," +
-                "NUMBATHS INT," +
-                "YEARBUIT INT," +
-                "SQUAREFOOTAGE INT," +
-                "ADDRESS INT);";
+                "ID INT PRIMARY KEY NOT NULL," +
+                "NUMBEDS INT NOT NULL," +
+                "NUMBATHS INT NOT NULL," +
+                "YEARBUIT INT NOT NULL," +
+                "SQUAREFOOTAGE INT NOT NULL," +
+                "ADDRESS INT NOT NULL," +
+                "FOREIGN KEY (ADDRESS) REFERENCES address);";
 
         try {
             connectionManager.execute(drop);
@@ -47,7 +48,6 @@ public class PropertyDao {
             System.err.println("Error Creating Prepared Statements for Property Table");
             e.printStackTrace();
         }
-        System.out.println("Loaded Property Table");
     }
 
     private void loadFromCSV() {
@@ -66,7 +66,7 @@ public class PropertyDao {
             System.err.println("Error Inserting Property Rows");
             e.printStackTrace();
         }
-        // Populate table
+        System.out.println("Loaded Property Table");
     }
 
     public List<Map<String, String>> getPropertys() {

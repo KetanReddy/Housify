@@ -27,12 +27,15 @@ public class SaleDao {
     private void createTable() {
         String drop = "DROP TABLE IF EXISTS sale";
         String create = "CREATE TABLE IF NOT EXISTS sale(" +
-                "ID INT PRIMARY KEY," +
-                "LISTING INT," +
-                "SELLER INT," +
-                "BUYER INT," +
-                "PRICE NUMERIC(10,2)," +
-                "DATE BIGINT);";
+                "ID INT PRIMARY KEY NOT NULL," +
+                "LISTING INT NOT NULL," +
+                "SELLER INT NOT NULL," +
+                "BUYER INT NOT NULL," +
+                "PRICE NUMERIC(10,2) NOT NULL," +
+                "DATE BIGINT NOT NULL," +
+                "FOREIGN KEY (LISTING) REFERENCES listing," +
+                "FOREIGN KEY (SELLER) REFERENCES client," +
+                "FOREIGN KEY (BUYER) REFERENCES client);";
 
         try {
             connectionManager.execute(drop);
@@ -47,7 +50,6 @@ public class SaleDao {
             System.err.println("Error Creating Prepared Statements for Sale Table");
             e.printStackTrace();
         }
-        System.out.println("Loaded Sale Table");
     }
 
     /*TODO Create a derived commission() function*/
@@ -68,7 +70,7 @@ public class SaleDao {
             System.err.println("Error Inserting Sale Rows");
             e.printStackTrace();
         }
-        // Populate table
+        System.out.println("Loaded Sale Table");
     }
 
     public List<Map<String, String>> getSales() {

@@ -32,13 +32,15 @@ public class Main {
         connectionManager = new H2ConnectionManager("./out/h2/housify", "admin", "pencil");
 
         // Initialize DAOs
-        agentDao = new AgentDao();
         addressDao = new AddressDao();
-        clientDao = new ClientDao();
-        listingDao = new ListingDao();
         officeDao = new OfficeDao();
+        agentDao = new AgentDao();
+        clientDao = new ClientDao();
         propertyDao = new PropertyDao();
+        listingDao = new ListingDao();
         saleDao = new SaleDao();
+        // must link listing to sale AFTER sale is created
+        listingDao.linkToSalesTable();
 
         // Initialize Javalin
         Javalin app = Javalin.create()

@@ -27,10 +27,11 @@ public class OfficeDao {
     private void createTable() {
         String drop = "DROP TABLE IF EXISTS office";
         String create = "CREATE TABLE IF NOT EXISTS office(" +
-                "ID INT PRIMARY KEY," +
-                "NAME VARCHAR(255)," +
-                "ADDRESS INT," +
-                "MANAGER VARCHAR(255));";
+                "ID INT PRIMARY KEY NOT NULL," +
+                "NAME VARCHAR(255) NOT NULL," +
+                "ADDRESS INT NOT NULL," +
+                "MANAGER VARCHAR(255) NOT NULL," +
+                "FOREIGN KEY (ADDRESS) REFERENCES address);";
 
         try {
             connectionManager.execute(drop);
@@ -64,7 +65,7 @@ public class OfficeDao {
             System.err.println("Error Inserting Office Rows");
             e.printStackTrace();
         }
-        // Populate table
+        System.out.println("Loaded Office Table");
     }
 
     public List<Map<String, String>> getOffices() {
