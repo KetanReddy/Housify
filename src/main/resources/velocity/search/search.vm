@@ -8,7 +8,7 @@
                 <div class="field-label is-normal"><label class="label">City</label></div>
                 <div class="field-body">
                     <div class="field">
-                        <p class="control">
+                        <span class="control">
                             <div class="select is-fullwidth is-info">
                                 <select name="city">
                                     <option value="">Select City</option>
@@ -17,7 +17,7 @@
                                     <option value="San Francisco">San Francisco</option>
                                 </select>
                             </div>
-                        </p>
+                        </span>
                     </div>
                 </div>
             </div>

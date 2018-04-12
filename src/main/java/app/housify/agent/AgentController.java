@@ -21,6 +21,7 @@ public class AgentController {
         data.put("agent", agentDao.getAgentInfo(context.param("id")));
         data.put("sales", saleDao.getAgentSales(context.param("id")));
         data.put("listings", listingDao.getAgentActiveListings(context.param("id")));
+        data.put("error", "No active listings for this agent");
         context.renderVelocity(Path.Template.AGENT_SINGLE, data);
     };
 

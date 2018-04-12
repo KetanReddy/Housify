@@ -1,3 +1,4 @@
+#if($sales && !$sales.isEmpty())
 <div class="property-list">
     #foreach($sale in $sales)
         <span class="property-item">
@@ -24,3 +25,6 @@
         </span>
     #end
 </div>
+#else
+No sales found
+#end

@@ -43,6 +43,7 @@ public class ManageController {
             data.put("metrics", saleDao.getMetrics());
             data.put("listings", listingDao.getActiveListings());
         }
+        data.put("error", "No active listings for this office/agent combination");
 
         context.renderVelocity(Path.Template.AGENT_METRICS, data);
     };

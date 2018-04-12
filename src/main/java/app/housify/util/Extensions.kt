@@ -30,9 +30,8 @@ fun ResultSet.asMap(): Map<String, String?>? {
 }
 
 fun String.extractFormData(): HashMap<String, String> {
-    return split("&").map { it.split("=") }.map { it[0] to it[1] }.toMap(HashMap())
+    return split("&").map { it.split("=") }.filter { it.size == 2 }.map { it[0] to it[1].replace("+", " ") }.toMap(HashMap())
 }
-
 
 fun HashMap<String, String?>.formatValues(): Map<String, String?> {
     formatUnixTimestamp()

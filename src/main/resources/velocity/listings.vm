@@ -31,5 +31,5 @@
     </div>
 </div>
 #else
-There are no active listings at this time
+$error
 #end
