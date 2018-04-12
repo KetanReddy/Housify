@@ -9,7 +9,7 @@
                 <div class="field-body">
                     <div class="field">
                         <p class="control">
-                            <div class="select is-fullwidth is-primary">
+                            <div class="select is-fullwidth is-info">
                                 <select name="city">
                                     <option value="">Select City</option>
                                     <option value="New York">New York</option>
