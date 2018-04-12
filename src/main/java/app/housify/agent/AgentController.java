@@ -17,7 +17,11 @@ public class AgentController {
     };
 
     public static Handler getAgent = context -> {
-        context.renderVelocity(Path.Template.AGENT_SINGLE, agentDao.getAgentByID(context.param("id")));
+        Map<String, Object> data = new HashMap<>();
+        data.put("agent", agentDao.getAgentInfo(context.param("id")));
+        data.put("sales", saleDao.getAgentSales(context.param("id")));
+        data.put("listings", listingDao.getAgentActiveListings(context.param("id")));
+        context.renderVelocity(Path.Template.AGENT_SINGLE, data);
     };
 
 }

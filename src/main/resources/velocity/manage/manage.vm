@@ -2,52 +2,39 @@
 #@mainLayout()
     <h1>Management</h1>
     <div>
-        <form ic-post-to="/manage" ic-target="#manage-results-container">
+        <form ic-post-to="/manage" ic-target="#manage-results-container" onsubmit="return false;">
             <!-- office and agent -->
             <div class="columns">
                 <div class="column">
                     <div class="select is-fullwidth">
-                        <select name="office">
-                            <option value="">Office</option>
-                            <option value="1">New York</option>
-                            <option value="2">California</option>
+                        <select name="office" onchange="document.getElementById('management-submit-button').click();">
+                            <option value="">Select an office</option>
+                            #foreach($office in $offices)
+                                <option value="$office.id">$office.name</option>
+                            #end
                         </select>
                     </div>
                 </div>
                 <div class="column">
                     <div class="select is-fullwidth">
-                        <select name="agent">
-                            <option value="">Agent</option>
-                            <option value="1">Tyler Krupicka</option>
-                            <option value="2">Ketan Reddy</option>
+                        <select name="agent" onchange="document.getElementById('management-submit-button').click();">
+                            <option value="">Select an agent</option>
+                            #foreach($agent in $agents)
+                                <option value="$agent.agent_id">$agent.agent_name</option>
+                            #end
                         </select>
                     </div>
                 </div>
             </div>
             <!-- Submit -->
-            <div class="field">
+            <div class="field" style="visibility: hidden; height: 0; width: 0;">
                 <p class="control">
-                    <button class="button is-info" type="submit" name="zip">Get Data</button>
+                    <button id="management-submit-button" class="button is-info" type="submit">Get Data</button>
                 </p>
             </div>
         </form>
     </div>
-    <!-- Metrics -->
-    <h1>Metrics</h1>
-    <div class="metric">
-        <span class="metric-left">Time to sell a home:</span>
-        <span class="metric-right">3 days</span>
-    </div>
-    <div class="metric">
-        <span class="metric-left">Average sale price:</span>
-        <span class="metric-right">$400,000</span>
-    </div>
-    <div class="metric">
-        <span class="metric-left">Total Sales:</span>
-        <span class="metric-right">200</span>
-    </div>
-    <h1>Active Listings</h1>
     <div id="manage-results-container">
-        #parse("/velocity/listings.vm")
+        #parse("/velocity/manage/metrics.vm")
     </div>
 #end

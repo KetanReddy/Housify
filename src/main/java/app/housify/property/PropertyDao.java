@@ -13,7 +13,7 @@ import static app.housify.Main.connectionManager;
 
 public class PropertyDao {
 
-    String InsertQuery = "INSERT INTO property (ID, NUMBEDS, NUMBATHS, YEARBUIT, SQUAREFOOTAGE, ADDRESS ) VALUES (?,?,?,?,?,?)";
+    String InsertQuery = "INSERT INTO property (ID, NUMBEDS, NUMBATHS, YEARBUILT, SQUAREFOOTAGE, ADDRESS ) VALUES (?,?,?,?,?,?)";
     PreparedStatement preparedInsert;
 
     public PropertyDao() {
@@ -28,7 +28,7 @@ public class PropertyDao {
                 "ID INT PRIMARY KEY NOT NULL," +
                 "NUMBEDS INT NOT NULL," +
                 "NUMBATHS INT NOT NULL," +
-                "YEARBUIT INT NOT NULL," +
+                "YEARBUILT INT NOT NULL," +
                 "SQUAREFOOTAGE INT NOT NULL," +
                 "ADDRESS INT NOT NULL," +
                 "FOREIGN KEY (ADDRESS) REFERENCES address);";

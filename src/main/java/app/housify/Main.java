@@ -57,7 +57,7 @@ public class Main {
                 });
             });
             get(Path.Web.MANAGE, ManageController.renderManage);
-            post(Path.Web.SEARCH, ManageController.showListings);
+            post(Path.Web.MANAGE, ManageController.showListings);
             get(Path.Web.SEARCH, SearchController.renderSearch);
             post(Path.Web.SEARCH, SearchController.performSearch);
             get("error", c -> { throw new Exception("error"); });

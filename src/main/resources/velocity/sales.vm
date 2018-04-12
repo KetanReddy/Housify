@@ -1,0 +1,26 @@
+<div class="property-list">
+    #foreach($sale in $sales)
+        <span class="property-item">
+            <div class="property-item-content">
+                <span class="property-item-left">
+                    <span class="address">$sale.address</span>
+                </span>
+                <span class="agent-item-right">
+                    <div class="tags">
+                        <span class="tag is-success">$sale.price</span>
+                        <span class="tag is-success">$sale.date</span>
+                    </div>
+                </span>
+            </div>
+        <!-- Atributes -->
+            <div class="property-item-details">
+                <span class="property-item-left">Bought by: $sale.buyer</span>
+                <span class="agent-item-right">
+                    <div class="tags">
+                        <span class="tag is-light">$sale.commission Commission</span>
+                    </div>
+                </span>
+            </div>
+        </span>
+    #end
+</div>

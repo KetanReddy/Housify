@@ -1,0 +1,22 @@
+<!-- Metrics -->
+<h1>Metrics</h1>
+#if($metrics && $metrics.total_sales != "0")
+<div class="metric">
+    <span class="metric-left">Time to sell a home:</span>
+    <span class="metric-right">$metrics.avg_time days</span>
+</div>
+<div class="metric">
+    <span class="metric-left">Average sale price:</span>
+    <span class="metric-right">$$metrics.avg_price</span>
+</div>
+<div class="metric">
+    <span class="metric-left">Total Sales:</span>
+    <span class="metric-right">$metrics.total_sales</span>
+</div>
+#else
+    There are no reported sales that match this crieria
+#end
+#if($listings)
+    <h1>Active Listings</h1>
+    #parse("/velocity/listings.vm")
+#end

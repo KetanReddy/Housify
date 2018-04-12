@@ -15,6 +15,12 @@ import static app.housify.Main.connectionManager;
 public class ListingDao {
 
     String InsertQuery = "INSERT INTO listing (ID, SELLER, PRICE, SALE, DATE, AGENT, OFFICE, PROPERTY) VALUES (?,?,?,?,?,?,?,?)";
+    String listingQuery = "WITH agent_listings(address, price, date, seller, numbeds, numbaths, yearbuilt, squarefootage) AS (" +
+            "SELECT address.street, listing.price, listing.date, seller.name, property.numbeds, property.numbaths, property.yearbuilt, property.squarefootage FROM (listing " +
+            "INNER JOIN property ON listing.property = property.id " +
+            "INNER JOIN address ON property.address = address.id " +
+            "INNER JOIN client AS seller ON listing.seller = seller.id " +
+            ") %s ) SELECT * FROM agent_listings;";
     PreparedStatement preparedInsert;
 
     public ListingDao() {
@@ -111,18 +117,39 @@ public class ListingDao {
         return null;
     }
 
-    /*TODO: write queries for active listing search criteria*/
-    /*public Map<String, String> searchListings(String id) {
-        String query = String.format("SELECT * FROM listing,address" +
-                " WHERE listing.ID = %s;", id);
+    private List<Map<String,String>> getActiveListings(String where) {
+        if (where != null && !where.isEmpty()) {
+            where += " AND listing.sale IS NULL";
+        } else {
+            where = "WHERE listing.sale IS NULL";
+        }
+        String query = String.format(listingQuery, where);
         try (StatementResultSet srs = connectionManager.executeQuery(query)) {
-            return ExtensionsKt.asMap(srs.getResultSet());
+            return ExtensionsKt.asArrayMap(srs.getResultSet());
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
-    */
+
+    public List<Map<String,String>> getActiveListings() {
+        return getActiveListings(null);
+    }
+    public List<Map<String,String>> getAgentActiveListings(String id) {
+        String where = String.format("WHERE listing.agent = %d", Integer.valueOf(id));
+        return getActiveListings(where);
+    }
+
+    public List<Map<String,String>> getOfficeActiveListings(String id) {
+        String where = String.format("WHERE listing.office = %d", Integer.valueOf(id));
+        return getActiveListings(where);
+    }
+
+    public List<Map<String,String>> getOfficeAgentActiveListings(String officeId, String agentId) {
+        String where = String.format("WHERE listing.office = %d AND listing.agent = %d",
+                Integer.valueOf(officeId), Integer.valueOf(agentId));
+        return getActiveListings(where);
+    }
 
     private void addListing(String[] ListingObj) throws SQLException {
         preparedInsert.setInt(1,Integer.parseInt(ListingObj[0]));

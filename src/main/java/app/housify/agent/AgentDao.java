@@ -76,9 +76,11 @@ public class AgentDao {
         System.out.println("Loaded Agent Table");
     }
 
-    /* TODO: Need to lookup client info: sellers of agent's listings and buyers of agent's sales */
     public List<Map<String, String>> getAgents() {
-        String query = "SELECT * FROM agent;";
+        String query = "WITH agent_list(agent_id, agent_name, agent_telephone, office_name) AS (" +
+                "SELECT agent.id, agent.name, agent.telephone, office.name " +
+                "FROM agent INNER JOIN office ON agent.office = office.id)" +
+                "SELECT * FROM agent_list;";
         try (StatementResultSet srs = connectionManager.executeQuery(query)) {
             return ExtensionsKt.asArrayMap(srs.getResultSet());
         } catch (SQLException e) {
@@ -87,8 +89,13 @@ public class AgentDao {
         return null;
     }
 
-    public Map<String, String> getAgentByID(String id) {
-        String query = String.format("SELECT * FROM agent WHERE ID = %s;", id);
+    public Map<String, String> getAgentInfo(String id) {
+        String query = String.format("WITH agent_info(name, office, telephone, address, salary) AS (" +
+                "SELECT agent.name, office.name, agent.telephone, address.street, agent.salary FROM (agent " +
+                "INNER JOIN office ON agent.office = office.id " +
+                "INNER JOIN address ON agent.address = address.id" +
+                ") WHERE agent.id = %d) " +
+                "SELECT * FROM agent_info;", Integer.valueOf(id));
         try (StatementResultSet srs = connectionManager.executeQuery(query)) {
             return ExtensionsKt.asMap(srs.getResultSet());
         } catch (SQLException e) {
@@ -109,7 +116,6 @@ public class AgentDao {
 
     private void deleteAgent (String id) {
         String query = String.format("DELETE * FROM agent WHERE ID = %s;", id);
-        System.out.println(query);
         try {
             connectionManager.execute(query);
         } catch (SQLException e) {
@@ -129,34 +135,10 @@ public class AgentDao {
         return null;
     }
 
-    public List<Map<String,String>> getAgentListings(String id) {
-        String query = String.format("SELECT * FROM listing WHERE AGENT = %s;",id);
-        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
-            return ExtensionsKt.asArrayMap(srs.getResultSet());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public List<Map<String,String>> getAgentActiveListings(String id) {
-        String query = String.format("SELECT * FROM listing WHERE AGENT = %s AND " +
-                "SALE IS NULL;",id);
-        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
-            return ExtensionsKt.asArrayMap(srs.getResultSet());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public List<Map<String,String>> getAgentAvgSalePrice(String id) {
-        String query = String.format("WITH agent_listing(SALEID) AS " +
-                "(SELECT SALE FROM listing " +
-                "WHERE AGENT = %s) " +
-                "SELECT AVG(PRICE) FROM sale " +
-                "WHERE sale.ID = agent_listing.SALEID);",id);
-        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
+        String q = String.format("SELECT AVG(sale.price) FROM sale " +
+                "INNER JOIN listing ON sale.listing = listing.sale WHERE listing.agent = %d;", Integer.valueOf(id));
+        try (StatementResultSet srs = connectionManager.executeQuery(q)) {
             return ExtensionsKt.asArrayMap(srs.getResultSet());
         } catch (SQLException e) {
             e.printStackTrace();

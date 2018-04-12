@@ -3,14 +3,14 @@
 <h1>Agents</h1>
 #foreach($agent in $agents)
     <div class="agent-list">
-        <a class="agent-item" href="/agent/$agent.id">
+        <a class="agent-item" href="/agent/$agent.agent_id">
             <span class="agent-item-left">
-                $agent.name
+                $agent.agent_name
             </span>
             <span class="agent-item-right">
                 <div class="tags">
-                    <span class="tag is-light">$agent.id</span>
-                    <span class="tag is-primary">$agent.telephone</span>
+                    <span class="tag is-light">$agent.office_name</span>
+                    <span class="tag is-primary">$agent.agent_telephone</span>
                 </div>
             </span>
         </a>

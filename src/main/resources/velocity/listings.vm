@@ -1,29 +1,35 @@
+#if($listings && !$listings.isEmpty())
 <div class="row row-3">
     <div class="property-list">
+        #foreach($listing in $listings)
         <span class="property-item">
             <div class="property-item-content">
                 <span class="property-item-left">
-                    <span class="address">Racquet Club 2B</span>
+                    <span class="address">$listing.address</span>
                 </span>
                 <span class="agent-item-right">
                     <div class="tags">
-                        <span class="tag is-link">$120,000</span>
-                        <span class="tag is-link">4/3/2018</span>
+                        <span class="tag is-link">$listing.price</span>
+                        <span class="tag is-link">$listing.date</span>
                     </div>
                 </span>
             </div>
             <!-- Atributes -->
             <div class="property-item-details">
-                <span class="property-item-left">Seller: Jeremiah Zucker</span>
+                <span class="property-item-left">Seller: $listing.seller</span>
                 <span class="agent-item-right">
                     <div class="tags">
-                        <span class="tag is-light">2 beds</span>
-                        <span class="tag is-light">1.5 baths</span>
-                        <span class="tag is-light">1879</span>
-                        <span class="tag is-light">900 sq. ft.</span>
+                        <span class="tag is-light">$listing.numbeds beds</span>
+                        <span class="tag is-light">$listing.numbaths baths</span>
+                        <span class="tag is-light">$listing.yearbuilt</span>
+                        <span class="tag is-light">$listing.squarefootage sq. ft.</span>
                     </div>
                 </span>
             </div>
         </span>
+        #end
     </div>
 </div>
+#else
+There are no active listings at this time
+#end

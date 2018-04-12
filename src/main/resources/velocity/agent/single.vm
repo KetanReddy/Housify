@@ -1,95 +1,48 @@
 #parse("/velocity/layout.vm")
 #@mainLayout()
-    #if($name)
-        <h1>Hello, $name</h1>
+    #if($agent)
+        <h1>Hello, $agent.name</h1>
         <div class="field is-grouped is-grouped-multiline">
             <div class="control">
                 <div class="tags has-addons">
                     <span class="tag is-light is-medium">Office</span>
-                    <span class="tag is-info is-medium">$office</span>
+                    <span class="tag is-info is-medium">$agent.office</span>
                 </div>
             </div>
 
             <div class="control">
                 <div class="tags has-addons">
                     <span class="tag is-light is-medium">Phone</span>
-                    <span class="tag is-info is-medium">$telephone</span>
+                    <span class="tag is-info is-medium">$agent.telephone</span>
                 </div>
             </div>
 
-            #if($address)
+            #if($agent.address)
             <div class="control">
                 <div class="tags has-addons">
                     <span class="tag is-light is-medium">Address</span>
-                    <span class="tag is-info is-medium">$address</span>
+                    <span class="tag is-info is-medium">$agent.address</span>
                 </div>
             </div>
             #end
 
-            #if($salary)
+            #if($agent.salary)
             <div class="control">
                 <div class="tags has-addons">
                     <span class="tag is-light is-medium">Salary</span>
-                    <span class="tag is-info is-medium">$salary</span>
+                    <span class="tag is-info is-medium">$agent.salary</span>
                 </div>
             </div>
             #end
         </div>
 
         <h2>Your Previous Sales</h2>
-        <div class="property-list">
-            <span class="property-item">
-                <div class="property-item-content">
-                    <span class="property-item-left">
-                        <span class="address">Perkins Green 157B Henrietta, NY</span>
-                    </span>
-                    <span class="agent-item-right">
-                        <div class="tags">
-                            <span class="tag is-success">$120,000</span>
-                            <span class="tag is-success">4/2/2018</span>
-                        </div>
-                    </span>
-                </div>
-                <!-- Atributes -->
-                <div class="property-item-details">
-                    <span class="property-item-left">Bought by: Ketan Reddy</span>
-                    <span class="agent-item-right">
-                        <div class="tags">
-                            <span class="tag is-light">5,000 Commission</span>
-                        </div>
-                    </span>
-                </div>
-            </span>
-        </div>
+        #parse("/velocity/sales.vm")
 
-        <h2>Your Active Listings</h2>
-        <div class="property-list">
-            <span class="property-item">
-                <div class="property-item-content">
-                    <span class="property-item-left">
-                        <span class="address">Racquet Club 2B</span>
-                    </span>
-                    <span class="agent-item-right">
-                        <div class="tags">
-                            <span class="tag is-link">$120,000</span>
-                            <span class="tag is-link">4/3/2018</span>
-                        </div>
-                    </span>
-                </div>
-                <!-- Atributes -->
-                <div class="property-item-details">
-                    <span class="property-item-left">Seller: Jeremiah Zucker</span>
-                    <span class="agent-item-right">
-                        <div class="tags">
-                            <span class="tag is-light">2 beds</span>
-                            <span class="tag is-light">1.5 baths</span>
-                            <span class="tag is-light">1879</span>
-                            <span class="tag is-light">900 sq. ft.</span>
-                        </div>
-                    </span>
-                </div>
-            </span>
-        </div>
+    <h2>Your Active Listings</h2>
+    <div class="property-list">
+        #parse("/velocity/listings.vm")
+    </div>
     #else
         <h1>Agent not found</h1>
     #end
