@@ -3,12 +3,9 @@ package app.housify.address;
 import app.housify.h2.StatementResultSet;
 import app.housify.util.ExtensionsKt;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -49,9 +46,16 @@ public class AddressDao {
         }
     }
     private void loadFromCSV () {
-        // load csv file
+        // try and get file
+        BufferedReader br = null;
         try {
-            BufferedReader br = new BufferedReader(new FileReader("./src/main/resources/data/Address.csv"));
+            br = new BufferedReader(new FileReader("./src/main/resources/data/Address.csv"));
+        } catch (FileNotFoundException e1) {
+            InputStream is = getClass().getResourceAsStream("/data/Address.csv");
+            br = new BufferedReader((new InputStreamReader(is)));
+        }
+        // read csv file
+        try {
             String line;
             // Populate table
             while((line = br.readLine()) != null){

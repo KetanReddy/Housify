@@ -3,9 +3,7 @@ package app.housify.listing;
 import app.housify.h2.StatementResultSet;
 import app.housify.util.ExtensionsKt;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -57,9 +55,16 @@ public class ListingDao {
     }
 
     private void loadFromCSV() {
-        // load csv file
+        // try and get file
+        BufferedReader br = null;
         try {
-            BufferedReader br = new BufferedReader(new FileReader("./src/main/resources/data/Listing.csv"));
+            br = new BufferedReader(new FileReader("./src/main/resources/data/Listing.csv"));
+        } catch (FileNotFoundException e1) {
+            InputStream is = getClass().getResourceAsStream("/data/Listing.csv");
+            br = new BufferedReader((new InputStreamReader(is)));
+        }
+        // read csv file
+        try {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] split = line.split(",");
