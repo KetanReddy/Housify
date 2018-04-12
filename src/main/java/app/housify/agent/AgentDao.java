@@ -71,7 +71,7 @@ public class AgentDao {
         System.out.println("Loaded Agent Table");
     }
 
-    /* TODO: Need to lookup address and office when those tables get completed */
+    /* TODO: Need to lookup client info: sellers of agent's listings and buyers of agent's sales */
     public List<Map<String, String>> getAgents() {
         String query = "SELECT * FROM agent;";
         try (StatementResultSet srs = connectionManager.executeQuery(query)) {
@@ -112,6 +112,18 @@ public class AgentDao {
         }
     }
 
+    public Map<String, String> getAddress(String id) {
+        String query = String.format("SELECT address.ID," +
+                "STREET,CITY,STATE,ZIP FROM address, agent " +
+                "WHERE agent.ID = %s AND agent.ADDRESS = address.ID;", id);
+        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
+            return ExtensionsKt.asMap(srs.getResultSet());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public List<Map<String,String>> getAgentListings(String id) {
         String query = String.format("SELECT * FROM listing WHERE AGENT = %s;",id);
         try (StatementResultSet srs = connectionManager.executeQuery(query)) {
@@ -122,12 +134,9 @@ public class AgentDao {
         return null;
     }
 
-    public List<Map<String,String>> getAgentSales(String id) {
-        String query = String.format("WITH agent_listing(SALEID) AS" +
-                "(SELECT SALE FROM listing " +
-                "WHERE AGENT = %s)" +
-                "SELECT * FROM sale " +
-                "WHERE sale.ID = agent_listing.SALEID;",id);
+    public List<Map<String,String>> getAgentActiveListings(String id) {
+        String query = String.format("SELECT * FROM listing WHERE AGENT = %s AND " +
+                "SALE IS NULL;",id);
         try (StatementResultSet srs = connectionManager.executeQuery(query)) {
             return ExtensionsKt.asArrayMap(srs.getResultSet());
         } catch (SQLException e) {
@@ -136,4 +145,86 @@ public class AgentDao {
         return null;
     }
 
+    public List<Map<String,String>> getAgentAvgSalePrice(String id) {
+        String query = String.format("WITH agent_listing(SALEID) AS " +
+                "(SELECT SALE FROM listing " +
+                "WHERE AGENT = %s) " +
+                "SELECT AVG(PRICE) FROM sale " +
+                "WHERE sale.ID = agent_listing.SALEID);",id);
+        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
+            return ExtensionsKt.asArrayMap(srs.getResultSet());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Map<String,String>> getAgentAvgSaleTime(String id) {
+        String query = String.format("WITH agent_listing(SALEID) AS " +
+                "(SELECT SALE FROM listing " +
+                        "WHERE AGENT = %s) " +
+                        "SELECT AVG(sale.DATE - agent_listing.DATE) FROM sale " +
+                        "WHERE sale.ID = agent_listing.SALEID);",id);
+        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
+            return ExtensionsKt.asArrayMap(srs.getResultSet());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Map<String, String> getOffice(String id) {
+        String query = String.format("SELECT office.ID," +
+                "office.NAME,office.ADDRESS,MANAGER FROM office, agent " +
+                "WHERE agent.ID = %s AND agent.OFFICE = office.ID;", id);
+        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
+            return ExtensionsKt.asMap(srs.getResultSet());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Map<String, String> getSaleCount(String id) {
+        String query = String.format("WITH agent_listing(SALEID) AS " +
+                "(SELECT SALE FROM listing " +
+                "WHERE AGENT = %s) " +
+                "SELECT COUNT(*) FROM sale " +
+                "WHERE sale.ID = agent_listing.SALEID);", id);
+        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
+            return ExtensionsKt.asMap(srs.getResultSet());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Map<String,String>> getAgentSales(String id) {
+        String query = String.format("WITH agent_listing(SALEID) AS " +
+                "(SELECT SALE FROM listing " +
+                "WHERE AGENT = %s) " +
+                "SELECT * FROM sale " +
+                "WHERE sale.ID = agent_listing.SALEID);",id);
+        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
+            return ExtensionsKt.asArrayMap(srs.getResultSet());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Map<String,String>> getTotalCommissions(String id) {
+        String query = String.format("WITH agent_listing(SALEID) AS" +
+                "(SELECT SALE FROM listing " +
+                "WHERE AGENT = %s)" +
+                "SELECT SUM(sale.PRICE*.10) FROM sale " +
+                "WHERE sale.ID = agent_listing.SALEID;",id);
+
+        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
+            return ExtensionsKt.asArrayMap(srs.getResultSet());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -88,6 +88,41 @@ public class OfficeDao {
         return null;
     }
 
+    public Map<String, String> getAddress(String id) {
+        String query = String.format("SELECT address.ID," +
+                "STREET,CITY,STATE,ZIP FROM address, office " +
+                "WHERE office.ID = %s AND office.ADDRESS = address.ID;", id);
+        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
+            return ExtensionsKt.asMap(srs.getResultSet());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Map<String, String> getManagerContact(String id) {
+        String query = String.format("SELECT agent.NAME,agent.TELEPHONE" +
+                " FROM office,agent" +
+                " WHERE office.ID = %s AND office.MANAGER = agent.ID;", id);
+        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
+            return ExtensionsKt.asMap(srs.getResultSet());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Map<String, String> getEmployees(String id) {
+        String query = String.format("SELECT agent.ID,agent.NAME FROM office,agent" +
+                " WHERE office.ID = %s AND office.ID = agent.OFFICE;", id);
+        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
+            return ExtensionsKt.asMap(srs.getResultSet());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private void addOffice(String[] OfficeObj) throws SQLException {
         preparedInsert.setInt(1,Integer.parseInt(OfficeObj[0]));
         preparedInsert.setString(2,OfficeObj[1]);

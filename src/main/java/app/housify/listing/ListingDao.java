@@ -106,6 +106,19 @@ public class ListingDao {
         return null;
     }
 
+    /*TODO: write queries for active listing search criteria*/
+    /*public Map<String, String> searchListings(String id) {
+        String query = String.format("SELECT * FROM listing,address" +
+                " WHERE listing.ID = %s;", id);
+        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
+            return ExtensionsKt.asMap(srs.getResultSet());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    */
+
     private void addListing(String[] ListingObj) throws SQLException {
         preparedInsert.setInt(1,Integer.parseInt(ListingObj[0]));
         preparedInsert.setInt(2,Integer.parseInt(ListingObj[1]));

@@ -89,6 +89,18 @@ public class PropertyDao {
         return null;
     }
 
+    public Map<String, String> getAddress(String id) {
+        String query = String.format("SELECT address.ID," +
+                "STREET,CITY,STATE,ZIP FROM address, property " +
+                "WHERE property.ID = %s AND property.ADDRESS = address.ID;", id);
+        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
+            return ExtensionsKt.asMap(srs.getResultSet());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private void addProperty(String[] PropertyObj) throws SQLException {
         preparedInsert.setInt(1,Integer.parseInt(PropertyObj[0]));
         preparedInsert.setInt(2,Integer.parseInt(PropertyObj[1]));

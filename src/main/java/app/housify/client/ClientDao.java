@@ -88,6 +88,20 @@ public class ClientDao {
         return null;
     }
 
+    /*TODO: Find sales client was a part of, as well as their current listings*/
+
+    public Map<String, String> getAddress(String id) {
+        String query = String.format("SELECT address.ID," +
+                "STREET,CITY,STATE,ZIP FROM address, client " +
+                "WHERE client.ID = %s AND client.ADDRESS = address.ID;", id);
+        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
+            return ExtensionsKt.asMap(srs.getResultSet());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private void addClient(String[] ClientObj) throws SQLException {
         preparedInsert.setInt(1,Integer.parseInt(ClientObj[0]));
         preparedInsert.setString(2,ClientObj[1]);
