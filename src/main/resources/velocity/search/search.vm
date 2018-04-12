@@ -3,13 +3,20 @@
     <h1>Property Search</h1>
     <div>
         <form ic-post-to="/search" ic-target="#search-results-container">
-            <!-- Zipcode -->
+            <!-- Cities -->
             <div class="field is-horizontal">
-                <div class="field-label is-normal"><label class="label">Zipcode</label></div>
+                <div class="field-label is-normal"><label class="label">City</label></div>
                 <div class="field-body">
                     <div class="field">
                         <p class="control">
-                            <input class="input" type="text" name="zip" placeholder="12345">
+                            <div class="select is-fullwidth is-info">
+                                <select name="city">
+                                    <option value="">Select City</option>
+                                    <option value="New York">New York</option>
+                                    <option value="Chicago">Chicago</option>
+                                    <option value="San Francisco">San Francisco</option>
+                                </select>
+                            </div>
                         </p>
                     </div>
                 </div>
