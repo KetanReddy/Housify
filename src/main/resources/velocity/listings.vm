@@ -9,7 +9,7 @@
                 </span>
                 <span class="agent-item-right">
                     <div class="tags">
-                        <span class="tag is-link">$listing.price</span>
+                        <span class="tag is-link">#[[$]]#$listing.price</span>
                         <span class="tag is-link">$listing.date</span>
                     </div>
                 </span>

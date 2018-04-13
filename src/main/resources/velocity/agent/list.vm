@@ -10,7 +10,7 @@
             <span class="agent-item-right">
                 <div class="tags">
                     <span class="tag is-light">$agent.office_name</span>
-                    <span class="tag is-primary">$agent.agent_telephone</span>
+                    <span class="tag is-primary">Tel: $agent.agent_telephone</span>
                 </div>
             </span>
         </a>

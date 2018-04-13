@@ -30,7 +30,7 @@
             <div class="control">
                 <div class="tags has-addons">
                     <span class="tag is-light is-medium">Salary</span>
-                    <span class="tag is-info is-medium">$agent.salary</span>
+                    <span class="tag is-info is-medium">#[[$]]#$agent.salary</span>
                 </div>
             </div>
             #end
