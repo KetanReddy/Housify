@@ -4,7 +4,7 @@
     <title>Housify</title>
     <link rel="stylesheet" href="/styles/bulma.css">
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/img/HousifyLogo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/js/jquery-3.1.1.min.js"></script>
     <script src="/js/intercooler-1.2.1.min.js"></script>
