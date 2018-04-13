@@ -23,7 +23,7 @@ public class ListingDao {
             "INNER JOIN property ON listing.property = property.id " +
             "INNER JOIN address ON property.address = address.id " +
             "INNER JOIN client AS seller ON listing.seller = seller.id " +
-            ") %s ) SELECT * FROM listings;";
+            ") %s ) SELECT * FROM listings ORDER BY date DESC;";
     String searchQuery = "WITH listings(address, price, date, seller, numbeds, numbaths, yearbuilt, squarefootage) AS (" +
             "SELECT CONCAT(address.street, ' ', address.city, ', ', address.state, ' ', address.zip)," +
             "listing.price, listing.date, seller.name, property.numbeds, property.numbaths, property.yearbuilt, property.squarefootage FROM (listing " +
@@ -36,7 +36,7 @@ public class ListingDao {
             "property.squarefootage as sq_ft, property.yearbuilt as year_built FROM (listing " +
             "INNER JOIN property ON listing.property = property.id " +
             "INNER JOIN address ON property.address = address.id " +
-            " ) ) SELECT id FROM params %s ) ) SELECT * FROM listings;";
+            " ) ) SELECT id FROM params %s ) ) SELECT * FROM listings ORDER BY date DESC;";
 
     public ListingDao() {
         // If listing table doesn't exist, create it and populate

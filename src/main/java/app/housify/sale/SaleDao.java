@@ -23,7 +23,7 @@ public class SaleDao {
             "INNER JOIN property ON listing.property = property.id " +
             "INNER JOIN address ON property.address = address.id" +
             ") %s ) " +
-            "SELECT * FROM agent_sales;";
+            "SELECT * FROM agent_sales ORDER BY date DESC;";
     String metricsQuery = "SELECT CAST(AVG(sale.date - listing.date) as BIGINT) as avg_time, " +
             "CAST(AVG(sale.price) as NUMERIC(10, 2)) as avg_price, " +
             "COUNT(sale.id) as total_sales FROM sale INNER JOIN listing " +
