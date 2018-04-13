@@ -67,7 +67,7 @@
 67,388 Greenwich St,New York,NY,10013
 68,333 O'Farrell St,San Francisco,CA,94109
 69,201 E Delaware Pl,Chicago,IL,60611
-70,0 Vera Place,New York,NY,10016
+70,1 Vera Place,New York,NY,10016
 71,853 Fremont Place,New York,NY,10011
 72,7 Namekagon Circle,New York,NY,10128
 73,6 Johnson Junction,New York,NY,11201
@@ -75,7 +75,7 @@
 75,86449 Spohn Avenue,Chicago,IL,60657
 76,1171 Sunbrook Way,Chicago,IL,60614
 77,1827 Lerdahl Place,Chicago,IL,60640
-78,5 Shopko Crossing,Chicago,IL, 60647
+78,5 Shopko Crossing,Chicago,IL,60647
 79,99905 Longview Terrace,Chicago,IL,60614
 80,318 Vahlen Pass,San Francisco,CA,94109
 81,4 Shasta Hill,San Francisco,CA,94109
@@ -113,8 +113,98 @@
 113,2170 Barnett Park,San Francisco,CA,94109
 114,91 Johnson Circle,San Francisco,CA,94109
 115,36 Johnson Parkway,New York,NY,10011
-116,42 Northview Plaza,Dallas,TX,43407
-117,42 Anniversary Plaza,Oklahoma City,OK,78523
-118,37 Menomonie Road,Monticello,MN,70169
-119,7825 Spohn Road,Brooklyn,NY,62350
-120,6 Texas Court,Madison,WI,99472
+116,42 Northview Plaza,San Francisco,CA,94109
+117,42 Anniversary Plaza,San Francisco,CA,94109
+118,37 Menomonie Road,San Francisco,CA,94109
+119,7825 Spohn Road,San Francisco,CA,94109
+120,6 Texas Court,San Francisco,CA,94109
+121,6 Pearson Circle,New York,NY,10016
+122,237 Daystar Circle,New York,NY,10011
+123,6 Marcy Parkway,New York,NY,10128
+124,89 Loomis Place,New York,NY,11201
+125,2815 Shopko Court,New York,NY,10011
+126,1 Pepper Wood Lane,Chicago,IL,60657
+127,195 Manufacturers Terrace,Chicago,IL,60614
+128,4533 Artisan Parkway,Chicago,IL,60640
+129,0308 Lighthouse Bay Terrace,Chicago,IL,60647
+130,74 Eastwood Trail,Chicago,IL,60614
+131,6984 Paget Road,New York,NY,10016
+132,35499 Superior Alley,New York,NY,10011
+133,25846 4th Street,New York,NY,10128
+134,58 Toban Place,New York,NY,11201
+135,07 Glendale Crossing,New York,NY,10011
+136,578 Lerdahl Terrace,Chicago,IL,60657
+137,13788 Schlimgen Junction,Chicago,IL,60614
+138,70923 Delaware Center,Chicago,IL,60640
+139,17158 Sauthoff Hill,Chicago,IL,60647
+140,152 Hollow Ridge Drive,Chicago,IL,60614
+141,31777 Rigney Hill,San Francisco,CA,94109
+142,78746 Miller Drive,San Francisco,CA,94109
+143,41159 1st Park,San Francisco,CA,94109
+144,8158 Calypso Lane,San Francisco,CA,94109
+145,5 Merrick Circle,San Francisco,CA,94109
+146,594 Glendale Place,New York,NY,10016
+147,78320 Grover Place,New York,NY,10011
+148,76009 Ludington Alley,New York,NY,10128
+149,2 Victoria Road,New York,NY,11201
+150,5 Holy Cross Terrace,New York,NY,10011
+151,9 Nobel Circle,Chicago,IL,60657
+152,669 Starling Point,Chicago,IL,60614
+153,1930 Morning Circle,Chicago,IL,60640
+154,9284 South Circle,Chicago,IL,60647
+155,856 Carey Way,Chicago,IL,60614
+156,70486 Eastwood Trail,San Francisco,CA,94109
+157,95549 Laurel Pass,San Francisco,CA,94109
+158,76 Hansons Way,San Francisco,CA,94109
+159,4 Petterle Road,San Francisco,CA,94109
+160,838 Loomis Court,San Francisco,CA,94109
+161,1123 Sommers Plaza,New York,NY,10016
+162,4566 Redwing Junction,New York,NY,10011
+163,88 Continental Crossing,New York,NY,10128
+164,3451 Dryden Trail,New York,NY,11201
+165,0793 Vahlen Circle,New York,NY,10011
+166,95 Alpine Lane,Chicago,IL,60657
+167,672 Harbort Place,Chicago,IL,60614
+168,8874 North Crossing,Chicago,IL,60640
+169,47 Sachs Pass,Chicago,IL,60647
+170,5 Talmadge Drive,Chicago,IL,60614
+171,7905 Anniversary Drive,San Francisco,CA,94109
+172,396 Manufacturers Place,San Francisco,CA,94109
+173,0 Florence Trail,San Francisco,CA,94109
+174,9 Northland Plaza,San Francisco,CA,94109
+175,3992 Sauthoff Plaza,San Francisco,CA,94109
+176,9 Blaine Point,New York,NY,10016
+177,52088 Eagan Street,New York,NY,10011
+178,2 Northwestern Trail,New York,NY,10128
+179,6 Crowley Hill,New York,NY,11201
+180,61 Manufacturers Drive,New York,NY,10011
+181,8878 Village Trail,Chicago,IL,60657
+182,180 Sachtjen Trail,Chicago,IL,60614
+183,0170 Marquette Court,Chicago,IL,60640
+184,334 New Castle Court,Chicago,IL,60647
+185,39 Dawn Junction,Chicago,IL,60614
+186,8885 Manley Park,San Francisco,CA,94109
+187,5 Crownhardt Crossing,San Francisco,CA,94109
+188,683 Bonner Court,San Francisco,CA,94109
+189,53 Sunnyside Alley,San Francisco,CA,94109
+190,5 Wayridge Avenue,San Francisco,CA,94109
+191,6 Golden Leaf Crossing,New York,NY,10016
+192,7351 Spohn Way,New York,NY,10011
+193,8503 Lunder Crossing,New York,NY,10128
+194,0 Alpine Court,New York,NY,11201
+195,240 Mayer Crossing,New York,NY,10011
+196,5 Northport Plaza,Chicago,IL,60657
+197,59307 Jenifer Lane,Chicago,IL,60614
+198,70 Vahlen Center,Chicago,IL,60640
+199,478 Rigney Terrace,Chicago,IL,60647
+200,22876 Bartillon Center,Chicago,IL,60614
+201,04 Harbort Street,San Francisco,CA,94109
+202,99 Iowa Park,San Francisco,CA,94109
+203,4 Johnson Park,San Francisco,CA,94109
+204,263 Shoshone Lane,San Francisco,CA,94109
+205,33 Mesta Place,San Francisco,CA,94109
+206,9233 Derek Circle,San Francisco,CA,94109
+207,323 Boyd Lane,San Francisco,CA,94109
+208,6 Prairie Rose Plaza,San Francisco,CA,94109
+209,80 Mifflin Avenue,San Francisco,CA,94109
+210,01 Kings Point,San Francisco,CA,94109
