@@ -8,11 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static app.housify.Main.connectionManager;
 
@@ -21,13 +18,15 @@ public class ListingDao {
     PreparedStatement preparedInsert;
     String InsertQuery = "INSERT INTO listing (ID, SELLER, PRICE, SALE, DATE, AGENT, OFFICE, PROPERTY) VALUES (?,?,?,?,?,?,?,?)";
     String listingQuery = "WITH listings(address, price, date, seller, numbeds, numbaths, yearbuilt, squarefootage) AS (" +
-            "SELECT address.street, listing.price, listing.date, seller.name, property.numbeds, property.numbaths, property.yearbuilt, property.squarefootage FROM (listing " +
+            "SELECT CONCAT(address.street, ' ', address.city, ', ', address.state, ' ', address.zip), " +
+            "listing.price, listing.date, seller.name, property.numbeds, property.numbaths, property.yearbuilt, property.squarefootage FROM (listing " +
             "INNER JOIN property ON listing.property = property.id " +
             "INNER JOIN address ON property.address = address.id " +
             "INNER JOIN client AS seller ON listing.seller = seller.id " +
             ") %s ) SELECT * FROM listings;";
     String searchQuery = "WITH listings(address, price, date, seller, numbeds, numbaths, yearbuilt, squarefootage) AS (" +
-            "SELECT CONCAT(address.street, ' ', address.city, ', ', address.state, ' ', address.zip), listing.price, listing.date, seller.name, property.numbeds, property.numbaths, property.yearbuilt, property.squarefootage FROM (listing " +
+            "SELECT CONCAT(address.street, ' ', address.city, ', ', address.state, ' ', address.zip)," +
+            "listing.price, listing.date, seller.name, property.numbeds, property.numbaths, property.yearbuilt, property.squarefootage FROM (listing " +
             "INNER JOIN property ON listing.property = property.id " +
             "INNER JOIN address ON property.address = address.id " +
             "INNER JOIN client AS seller ON listing.seller = seller.id " +
@@ -57,6 +56,7 @@ public class ListingDao {
                 "OFFICE INT NOT NULL," +
                 "PROPERTY INT NOT NULL," +
                 "FOREIGN KEY (SELLER) REFERENCES client," +
+                "FOREIGN KEY (SALE) REFERENCES sale," +
                 "FOREIGN KEY (AGENT) REFERENCES agent," +
                 "FOREIGN KEY (OFFICE) REFERENCES office," +
                 "FOREIGN KEY (PROPERTY) REFERENCES property);";
@@ -100,37 +100,6 @@ public class ListingDao {
             e.printStackTrace();
         }
         System.out.println("Loaded Listing Table");
-    }
-
-    public void linkToSalesTable() {
-        String alter = "ALTER TABLE listing ADD FOREIGN KEY (SALE) REFERENCES sale;";
-        try {
-            connectionManager.execute(alter);
-        } catch (SQLException e) {
-            System.err.println("Error linking Listing table to Sale");
-            e.printStackTrace();
-        }
-        System.out.println("Linked Listing and Sales Tables");
-    }
-
-    public List<Map<String, String>> getListings() {
-        String query = "SELECT * FROM listing;";
-        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
-            return ExtensionsKt.asArrayMap(srs.getResultSet());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public Map<String, String> getListingByID(String id) {
-        String query = String.format("SELECT * FROM listing WHERE ID = %s;", id);
-        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
-            return ExtensionsKt.asMap(srs.getResultSet());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     private List<Map<String, String>> getActiveListings(String where) {

@@ -21,7 +21,7 @@
                     <div class="tags">
                         <span class="tag is-light">$listing.numbeds beds</span>
                         <span class="tag is-light">$listing.numbaths baths</span>
-                        <span class="tag is-light">$listing.yearbuilt</span>
+                        <span class="tag is-light">Year built: $listing.yearbuilt</span>
                         <span class="tag is-light">$listing.squarefootage sq. ft.</span>
                     </div>
                 </span>

@@ -14,7 +14,6 @@
     width: 100%;
     align-items: center;
     padding: 15px;
-    cursor: pointer;
     color: rgba(0,0,0,.87);
 }
 .property-item-details {
@@ -25,16 +24,11 @@
     width: 100%;
     align-items: center;
     padding: 0px 15px 15px 15px;
-    cursor: pointer;
     color: rgba(0,0,0,.87);
 }
 .address {
     font-size: 1.1em;
     font-weight: 600;
-}
-.property-item:hover {
-    background-color: #fafafa;
-    cursor: pointer;
 }
 .property-item-left {
     flex: 1;
