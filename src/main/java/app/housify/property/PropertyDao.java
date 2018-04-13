@@ -1,13 +1,8 @@
 package app.housify.property;
 
-import app.housify.h2.StatementResultSet;
-import app.housify.util.ExtensionsKt;
-
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
 
 import static app.housify.Main.connectionManager;
 
@@ -72,38 +67,6 @@ public class PropertyDao {
             e.printStackTrace();
         }
         System.out.println("Loaded Property Table");
-    }
-
-    public List<Map<String, String>> getPropertys() {
-        String query = "SELECT * FROM property;";
-        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
-            return ExtensionsKt.asArrayMap(srs.getResultSet());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public Map<String, String> getPropertyByID(String id) {
-        String query = String.format("SELECT * FROM property WHERE ID = %s;", id);
-        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
-            return ExtensionsKt.asMap(srs.getResultSet());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public Map<String, String> getAddress(String id) {
-        String query = String.format("SELECT address.ID," +
-                "STREET,CITY,STATE,ZIP FROM address, property " +
-                "WHERE property.ID = %s AND property.ADDRESS = address.ID;", id);
-        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
-            return ExtensionsKt.asMap(srs.getResultSet());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     private void addProperty(String[] PropertyObj) throws SQLException {

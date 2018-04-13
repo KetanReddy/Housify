@@ -13,9 +13,9 @@
     <header>
         <nav>
             <div class="logo left has-text-info">Housify</div>
-                <a href="/agent" class="button is-info is-outlined"><span>Agents</span></a>
-                <a href="/search" class="button is-info is-outlined"><span>Search</span></a>
-                <a href="/manage" class="button is-info is-outlined"><span>Manage</span></a>
+            <a href="/agent" class="button is-info is-outlined"><span>Agents</span></a>
+            <a href="/search" class="button is-info is-outlined"><span>Search</span></a>
+            <a href="/manage" class="button is-info is-outlined"><span>Manage</span></a>
         </nav>
     </header>
     <main>

@@ -1,15 +1,8 @@
 package app.housify.address;
 
-import app.housify.h2.StatementResultSet;
-import app.housify.util.ExtensionsKt;
-
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static app.housify.Main.connectionManager;
 
@@ -72,26 +65,6 @@ public class AddressDao {
             e.printStackTrace();
         }
         System.out.println("Loaded Address Table");
-    }
-
-    public List<Map<String, String>> getAddresses() {
-        String query = "SELECT * FROM address;";
-        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
-            return ExtensionsKt.asArrayMap(srs.getResultSet());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public Map<String, String> getAddressByID(String id) {
-        String query = String.format("SELECT * FROM address WHERE ID = %s;", id);
-        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
-            return ExtensionsKt.asMap(srs.getResultSet());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     private void addAddress (String[] AddressObj) throws SQLException {

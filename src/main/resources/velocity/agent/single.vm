@@ -13,7 +13,7 @@
             <div class="control">
                 <div class="tags has-addons">
                     <span class="tag is-light is-medium">Phone</span>
-                    <span class="tag is-info is-medium">$agent.telephone</span>
+                    <span class="tag is-info is-medium">($agent.telephone.substring(0,3)) $agent.telephone.substring(3,6)-$agent.telephone.substring(6,10)</span>
                 </div>
             </div>
 

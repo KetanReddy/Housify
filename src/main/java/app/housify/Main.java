@@ -37,10 +37,8 @@ public class Main {
         agentDao = new AgentDao();
         clientDao = new ClientDao();
         propertyDao = new PropertyDao();
-        listingDao = new ListingDao();
         saleDao = new SaleDao();
-        // must link listing to sale AFTER sale is created
-        listingDao.linkToSalesTable();
+        listingDao = new ListingDao();
 
         // Initialize Javalin
         Javalin app = Javalin.create()
@@ -52,9 +50,7 @@ public class Main {
             get(Path.Web.INDEX, AgentController.getAgents);
             path(Path.Web.AGENT, () -> {
                 get(AgentController.getAgents);
-                path(":id", () -> {
-                    get(AgentController.getAgent);
-                });
+                path(":id", () -> get(AgentController.getAgent));
             });
             get(Path.Web.MANAGE, ManageController.renderManage);
             post(Path.Web.MANAGE, ManageController.showListings);

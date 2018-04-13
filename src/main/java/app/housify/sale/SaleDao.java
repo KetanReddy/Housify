@@ -14,19 +14,20 @@ import static app.housify.Main.connectionManager;
 public class SaleDao {
 
     PreparedStatement preparedInsert;
-    String InsertQuery = "INSERT INTO sale (ID, LISTING, SELLER, BUYER, PRICE, DATE) VALUES (?,?,?,?,?,?)";
+    String InsertQuery = "INSERT INTO sale (ID, BUYER, PRICE, DATE) VALUES (?,?,?,?)";
     String saleQuery = "WITH agent_sales(address, price, date, buyer, commission) AS (" +
-            "SELECT address.street, sale.price, sale.date, buyer.name, sale.commission FROM (sale " +
+            "SELECT CONCAT(address.street, ' ', address.city, ', ', address.state, ' ', address.zip)," +
+            "sale.price, sale.date, buyer.name, sale.commission FROM (sale " +
             "INNER JOIN client AS buyer ON sale.buyer = buyer.id " +
-            "INNER JOIN listing ON sale.listing = listing.id " +
-            "INNER JOIN property ON listing.    property = property.id " +
+            "INNER JOIN listing ON listing.sale = sale.id " +
+            "INNER JOIN property ON listing.property = property.id " +
             "INNER JOIN address ON property.address = address.id" +
             ") %s ) " +
             "SELECT * FROM agent_sales;";
     String metricsQuery = "SELECT CAST(AVG(sale.date - listing.date) as BIGINT) as avg_time, " +
             "CAST(AVG(sale.price) as NUMERIC(10, 2)) as avg_price, " +
             "COUNT(sale.id) as total_sales FROM sale INNER JOIN listing " +
-            "ON sale.listing = listing.sale %s;";
+            "ON sale.id = listing.sale %s;";
 
     public SaleDao() {
         // If sale table doesn't exist, create it and populate
@@ -38,14 +39,10 @@ public class SaleDao {
         String drop = "DROP TABLE IF EXISTS sale";
         String create = "CREATE TABLE IF NOT EXISTS sale(" +
                 "ID INT PRIMARY KEY NOT NULL," +
-                "LISTING INT NOT NULL," +
-                "SELLER INT NOT NULL," +
                 "BUYER INT NOT NULL," +
                 "PRICE NUMERIC(10,2) NOT NULL," +
                 "COMMISSION NUMERIC(10,2) AS 0.1 * PRICE," +
                 "DATE BIGINT NOT NULL," +
-                "FOREIGN KEY (LISTING) REFERENCES listing," +
-                "FOREIGN KEY (SELLER) REFERENCES client," +
                 "FOREIGN KEY (BUYER) REFERENCES client);";
 
         try {
@@ -87,36 +84,6 @@ public class SaleDao {
             e.printStackTrace();
         }
         System.out.println("Loaded Sale Table");
-    }
-
-    public List<Map<String, String>> getSales() {
-        String query = "SELECT * FROM sale;";
-        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
-            return ExtensionsKt.asArrayMap(srs.getResultSet());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public Map<String, String> getSaleByID(String id) {
-        String query = String.format("SELECT * FROM sale WHERE ID = %s;", id);
-        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
-            return ExtensionsKt.asMap(srs.getResultSet());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public Map<String, String> getSaleCommission(String id) {
-        String query = String.format("SELECT PRICE*.10 FROM sale WHERE ID = %s;",id);
-        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
-            return ExtensionsKt.asMap(srs.getResultSet());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     private List<Map<String,String>> getSales(String where) {
@@ -179,9 +146,7 @@ public class SaleDao {
         preparedInsert.setInt(1,Integer.parseInt(SaleObj[0]));
         preparedInsert.setInt(2,Integer.parseInt(SaleObj[1]));
         preparedInsert.setInt(3,Integer.parseInt(SaleObj[2]));
-        preparedInsert.setInt(4,Integer.parseInt(SaleObj[3]));
-        preparedInsert.setInt(5,Integer.parseInt(SaleObj[4]));
-        preparedInsert.setLong(6,Long.parseLong(SaleObj[5]));
+        preparedInsert.setLong(4,Long.parseLong(SaleObj[3]));
         preparedInsert.executeUpdate();
     }
 }

@@ -1,9 +1,9 @@
 1,99623 Dakota Plaza,New Orleans,LA,82574
-2,095 Kipling Terrace,Peoria,IL,94242
-3,01 Lotheville Lane,Houston,TX,82399
+2,95 Kipling Terrace,Peoria,IL,94242
+3,1 Lotheville Lane,Houston,TX,82399
 4,5 Aberg Point,Richmond,VA,73267
-5,0475 Pond Plaza,Philadelphia,PA,97198
-6,0 Schiller Court,Miami,FL,34309
+5,475 Pond Plaza,Philadelphia,PA,97198
+6,10 Schiller Court,Miami,FL,34309
 7,54 Pleasure Parkway,Corpus Christi,TX,13688
 8,13 Fremont Circle,Los Angeles,CA,79634
 9,34310 Summer Ridge Plaza,Tulsa,OK,95829
@@ -13,8 +13,8 @@
 13,65 Scofield Plaza,San Bernardino,CA,97176
 14,73132 Swallow Road,Milwaukee,WI,69314
 15,310 Merry Court,Milwaukee,WI,52410
-16,09350 Cascade Junction,Jacksonville,FL,67281
-17,0039 Summit Road,Roanoke,VA,33659
+16,9350 Cascade Junction,Jacksonville,FL,67281
+17,39 Summit Road,Roanoke,VA,33659
 18,7758 Del Mar Hill,Lafayette,IN,14376
 19,4505 Pawling Center,Washington,DC,97462
 20,7448 Lake View Plaza,Washington,DC,34545
@@ -34,10 +34,10 @@
 34,52 8th Way,Norwalk,CT,82317
 35,285 Ridgeview Lane,New York City,NY,64805
 36,722 Cherokee Pass,Glendale,AZ,46041
-37,0 Crownhardt Street,Richmond,VA,64802
+37,10 Crownhardt Street,Richmond,VA,64802
 38,66478 Melvin Point,Philadelphia,PA,72232
 39,7768 Waxwing Center,Saint Paul,MN,91737
-40,092 Melby Pass,Charlotte,NC,25647
+40,92 Melby Pass,Charlotte,NC,25647
 41,75 Tennyson Center,Miami,FL,12407
 42,5259 Lillian Parkway,Dulles,VA,29055
 43,33297 Dennis Lane,Portland,OR,58224
@@ -46,12 +46,12 @@
 46,5 Hollow Ridge Drive,Pasadena,CA,12111
 47,14136 Dottie Pass,Buffalo,NY,37704
 48,22 Grasskamp Avenue,Brea,CA,22387
-49,06928 Vahlen Pass,Norfolk,VA,23886
+49,6928 Vahlen Pass,Norfolk,VA,23886
 50,36 Chinook Street,Los Angeles,CA,71720
 51,1 Anderson Avenue,Houston,TX,33610
 52,35 Cascade Street,San Antonio,TX,71432
 53,494 Calypso Center,Portland,OR,23409
-54,093 Ludington Lane,Springfield,IL,72312
+54,93 Ludington Lane,Springfield,IL,72312
 55,4270 Buhler Junction,New York City,NY,11379
 56,39972 Hoffman Point,Ventura,CA,26561
 57,9096 Myrtle Center,Albany,NY,18837
@@ -93,12 +93,12 @@
 93,12 Homewood Park,Chicago,IL,60657
 94,994 Summer Ridge Park,Chicago,IL,60614
 95,66 Cordelia Court,San Francisco,CA,94109
-96,001 Novick Avenue,San Francisco,CA,94109
+96,1 Novick Avenue,San Francisco,CA,94109
 97,809 Kim Alley,San Francisco,CA,94109
 98,98 Dovetail Park,San Francisco,CA,94109
 99,73284 Old Gate Crossing,San Francisco,CA,94109
 100,7 Dunning Place,New York,NY,11375
-101,011 Morning Avenue,New York,NY,11235
+101,11 Morning Avenue,New York,NY,11235
 102,983 Judy Alley,New York,NY,11375
 103,436 Schiller Alley,New York,NY,11235
 104,86 Russell Park,New York,NY,11325
@@ -108,7 +108,7 @@
 108,71327 Rowland Avenue,Chicago,IL,60640
 109,4587 Bobwhite Hill,Chicago,IL,60614
 110,9993 Prairieview Drive,San Francisco,CA,94109
-111,08 Florence Plaza,San Francisco,CA,94109
+111,8 Florence Plaza,San Francisco,CA,94109
 112,6 Division Plaza,San Francisco,CA,94109
 113,2170 Barnett Park,San Francisco,CA,94109
 114,91 Johnson Circle,San Francisco,CA,94109
@@ -126,13 +126,13 @@
 126,1 Pepper Wood Lane,Chicago,IL,60657
 127,195 Manufacturers Terrace,Chicago,IL,60614
 128,4533 Artisan Parkway,Chicago,IL,60640
-129,0308 Lighthouse Bay Terrace,Chicago,IL,60647
+129,308 Lighthouse Bay Terrace,Chicago,IL,60647
 130,74 Eastwood Trail,Chicago,IL,60614
 131,6984 Paget Road,New York,NY,10016
 132,35499 Superior Alley,New York,NY,10011
 133,25846 4th Street,New York,NY,10128
 134,58 Toban Place,New York,NY,11201
-135,07 Glendale Crossing,New York,NY,10011
+135,7 Glendale Crossing,New York,NY,10011
 136,578 Lerdahl Terrace,Chicago,IL,60657
 137,13788 Schlimgen Junction,Chicago,IL,60614
 138,70923 Delaware Center,Chicago,IL,60640
@@ -162,7 +162,7 @@
 162,4566 Redwing Junction,New York,NY,10011
 163,88 Continental Crossing,New York,NY,10128
 164,3451 Dryden Trail,New York,NY,11201
-165,0793 Vahlen Circle,New York,NY,10011
+165,793 Vahlen Circle,New York,NY,10011
 166,95 Alpine Lane,Chicago,IL,60657
 167,672 Harbort Place,Chicago,IL,60614
 168,8874 North Crossing,Chicago,IL,60640
@@ -170,7 +170,7 @@
 170,5 Talmadge Drive,Chicago,IL,60614
 171,7905 Anniversary Drive,San Francisco,CA,94109
 172,396 Manufacturers Place,San Francisco,CA,94109
-173,0 Florence Trail,San Francisco,CA,94109
+173,10 Florence Trail,San Francisco,CA,94109
 174,9 Northland Plaza,San Francisco,CA,94109
 175,3992 Sauthoff Plaza,San Francisco,CA,94109
 176,9 Blaine Point,New York,NY,10016
@@ -180,7 +180,7 @@
 180,61 Manufacturers Drive,New York,NY,10011
 181,8878 Village Trail,Chicago,IL,60657
 182,180 Sachtjen Trail,Chicago,IL,60614
-183,0170 Marquette Court,Chicago,IL,60640
+183,170 Marquette Court,Chicago,IL,60640
 184,334 New Castle Court,Chicago,IL,60647
 185,39 Dawn Junction,Chicago,IL,60614
 186,8885 Manley Park,San Francisco,CA,94109
@@ -191,14 +191,14 @@
 191,6 Golden Leaf Crossing,New York,NY,10016
 192,7351 Spohn Way,New York,NY,10011
 193,8503 Lunder Crossing,New York,NY,10128
-194,0 Alpine Court,New York,NY,11201
+194,10 Alpine Court,New York,NY,11201
 195,240 Mayer Crossing,New York,NY,10011
 196,5 Northport Plaza,Chicago,IL,60657
 197,59307 Jenifer Lane,Chicago,IL,60614
 198,70 Vahlen Center,Chicago,IL,60640
 199,478 Rigney Terrace,Chicago,IL,60647
 200,22876 Bartillon Center,Chicago,IL,60614
-201,04 Harbort Street,San Francisco,CA,94109
+201,4 Harbort Street,San Francisco,CA,94109
 202,99 Iowa Park,San Francisco,CA,94109
 203,4 Johnson Park,San Francisco,CA,94109
 204,263 Shoshone Lane,San Francisco,CA,94109
@@ -207,4 +207,4 @@
 207,323 Boyd Lane,San Francisco,CA,94109
 208,6 Prairie Rose Plaza,San Francisco,CA,94109
 209,80 Mifflin Avenue,San Francisco,CA,94109
-210,01 Kings Point,San Francisco,CA,94109
+210,1 Kings Point,San Francisco,CA,94109
