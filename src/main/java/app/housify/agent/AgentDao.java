@@ -33,11 +33,9 @@ public class AgentDao {
                 "TELEPHONE VARCHAR(10) NOT NULL," +
                 "FOREIGN KEY (ADDRESS) REFERENCES address," +
                 "FOREIGN KEY (OFFICE) REFERENCES office);";
-        String index = "CREATE UNIQUE INDEX agent_index ON agent (ID);";
         try {
             connectionManager.execute(drop);
             connectionManager.execute(create);
-            connectionManager.execute(index);
         } catch (SQLException e) {
             System.err.println("Error Creating Agent Table");
             e.printStackTrace();

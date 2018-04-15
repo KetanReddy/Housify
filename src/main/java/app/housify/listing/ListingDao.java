@@ -60,10 +60,12 @@ public class ListingDao {
                 "FOREIGN KEY (AGENT) REFERENCES agent," +
                 "FOREIGN KEY (OFFICE) REFERENCES office," +
                 "FOREIGN KEY (PROPERTY) REFERENCES property);";
+        String index = "CREATE UNIQUE INDEX listing_by_office_agent_index ON listing (ID, OFFICE, AGENT);";
 
         try {
             connectionManager.execute(drop);
             connectionManager.execute(create);
+            connectionManager.execute(index);
         } catch (SQLException e) {
             e.printStackTrace();
         }

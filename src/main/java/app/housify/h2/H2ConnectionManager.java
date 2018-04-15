@@ -2,7 +2,7 @@ package app.housify.h2;
 
 import java.sql.*;
 
-public class H2ConnectionManager {
+public class H2ConnectionManager implements AutoCloseable {
 
     private Connection connection;
 
@@ -33,4 +33,8 @@ public class H2ConnectionManager {
         return connection.prepareStatement(statement);
     }
 
+    @Override
+    public void close() throws Exception {
+        connection.close();
+    }
 }

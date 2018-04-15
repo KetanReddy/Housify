@@ -1,13 +1,8 @@
 package app.housify.client;
 
-import app.housify.h2.StatementResultSet;
-import app.housify.util.ExtensionsKt;
-
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
 
 import static app.housify.Main.connectionManager;
 
@@ -71,40 +66,6 @@ public class ClientDao {
             e.printStackTrace();
         }
         System.out.println("Loaded Client Table");
-    }
-
-    public List<Map<String, String>> getClients() {
-        String query = "SELECT * FROM client;";
-        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
-            return ExtensionsKt.asArrayMap(srs.getResultSet());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public Map<String, String> getClientByID(String id) {
-        String query = String.format("SELECT * FROM client WHERE ID = %s;", id);
-        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
-            return ExtensionsKt.asMap(srs.getResultSet());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /*TODO: Find sales client was a part of, as well as their current listings*/
-
-    public Map<String, String> getAddress(String id) {
-        String query = String.format("SELECT address.ID," +
-                "STREET,CITY,STATE,ZIP FROM address, client " +
-                "WHERE client.ID = %s AND client.ADDRESS = address.ID;", id);
-        try (StatementResultSet srs = connectionManager.executeQuery(query)) {
-            return ExtensionsKt.asMap(srs.getResultSet());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     private void addClient(String[] ClientObj) throws SQLException {
